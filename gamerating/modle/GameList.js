@@ -18,14 +18,17 @@ var sequelize = new Sequelize(config.database, config.username, config.password,
 
 let GameList = sequelize.define('gamelist', {
     id: {
-        type: Sequelize.BIGINT(50),
+        type: Sequelize.BIGINT,
         autoIncrement: true,
         primaryKey: true
     },
     name: Sequelize.STRING(100),
     img: Sequelize.STRING(100),
     creatorId: Sequelize.BIGINT,
-    gameId: Sequelize.BIGINT,
+    gameId: {
+        type: Sequelize.BIGINT,
+        primaryKey: true
+    },
     createdAt: Sequelize.BIGINT,
     updatedAt: Sequelize.BIGINT
 }, {
