@@ -1,25 +1,45 @@
 const Sequelize = require ("sequelize");
 const config  = require ("./config.js");
-const Game = require ("./model/Game.js");
-const Review = require ("./model/Review.js");
-const User = require ("./model/User.js");
-const GameList = require ("./model/GameList.js");
-const Platform = require ("./model/Platform.js");
 
-import {addGame} from "./operation/addGame"
-let game = {
-    title: "A",
-    gameType: "RPG",
-    totalRate: 4.7,
-    price: "$324",
-    releaseCompany: "EA",
-    releaseDate: "2/3/2017",
-    studio: "flag"
-};
+let sequelize = new Sequelize(config.database, config.username, config.password, {
+    host: config.host,
+    dialect: 'mysql',
+    pool: {
+        max: 5,
+        min: 0,
+        idle: 30000
+    }
+});
 
-let e = addGame(game);
+let now = Date.now();
+//import {defgl} from './model/GameList';
+//let GameList = defgl(sequelize);
 
+import {defg} from './model/Game';
+let Game = defg(sequelize);
+//Game.sync();
 
+//import {addGame} from './operation/Game';
+// addGame({
+//             title: "Super Mario",
+//             gameType: "Run",
+//             totalRate: 5,
+//             price: "$10",
+//             releaseCompany: "N",
+//             releaseDate: "2017",
+//             studio: "default",
+// },Game);
+// import {defp} from './model/Platform';
+// let Platform = defp(sequelize);
+
+// import {defr} from './model/Review';
+// let Review = defr(sequelize);
+
+// import {deru} from './model/User';
+// let User=deru(sequelize);
+
+import {queryGameById} from './operation/Game';
+queryGameById(1,Game);
 
 //add the game platform
 // (async () => {

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run build; node app.js",
+    "start": "npm run build; node dist/app.js",
     "build": "babel src -d dist"
   },
   "dependencies": {

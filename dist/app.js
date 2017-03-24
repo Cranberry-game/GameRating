@@ -1,26 +1,49 @@
 "use strict";
 
-var _addGame = require("./operation/addGame");
+var _Game = require("./model/Game");
+
+var _Game2 = require("./operation/Game");
 
 var Sequelize = require("sequelize");
 var config = require("./config.js");
-var Game = require("./model/Game.js");
-var Review = require("./model/Review.js");
-var User = require("./model/User.js");
-var GameList = require("./model/GameList.js");
-var Platform = require("./model/Platform.js");
 
-var game = {
-  title: "A",
-  gameType: "RPG",
-  totalRate: 4.7,
-  price: "$324",
-  releaseCompany: "EA",
-  releaseDate: "2/3/2017",
-  studio: "flag"
-};
+var sequelize = new Sequelize(config.database, config.username, config.password, {
+  host: config.host,
+  dialect: 'mysql',
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 30000
+  }
+});
 
-var e = (0, _addGame.addGame)(game);
+var now = Date.now();
+//import {defgl} from './model/GameList';
+//let GameList = defgl(sequelize);
+
+var Game = (0, _Game.defg)(sequelize);
+//Game.sync();
+
+//import {addGame} from './operation/Game';
+// addGame({
+//             title: "Super Mario",
+//             gameType: "Run",
+//             totalRate: 5,
+//             price: "$10",
+//             releaseCompany: "N",
+//             releaseDate: "2017",
+//             studio: "default",
+// },Game);
+// import {defp} from './model/Platform';
+// let Platform = defp(sequelize);
+
+// import {defr} from './model/Review';
+// let Review = defr(sequelize);
+
+// import {deru} from './model/User';
+// let User=deru(sequelize);
+
+(0, _Game2.queryGameById)(1, Game);
 
 //add the game platform
 // (async () => {

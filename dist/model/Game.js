@@ -1,40 +1,32 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 /**
  * Created by WangYe on 3/20/17.
  */
 var Sequelize = require("sequelize");
-var config = require("../config.js");
+//const config  = require ("../config.js");
 
-var sequelize = new Sequelize(config.database, config.username, config.password, {
-    host: config.host,
-    dialect: 'mysql',
-    pool: {
-        max: 5,
-        min: 0,
-        idle: 30000
-    }
-});
+var defg = exports.defg = function defg(sequelize) {
 
-var Game = sequelize.define('game', {
-    id: {
-        type: Sequelize.BIGINT(50),
-        autoIncrement: true,
-        primaryKey: true
-    },
-    title: Sequelize.STRING(100),
-    gameType: Sequelize.STRING(100),
-    totalRate: Sequelize.BIGINT,
-    price: Sequelize.STRING(100),
-    releaseCompany: Sequelize.STRING(100),
-    releaseDate: Sequelize.STRING(100),
-    studio: Sequelize.STRING(100),
-    createdAt: Sequelize.BIGINT,
-    updatedAt: Sequelize.BIGINT
-}, {
-    timestamps: false
-});
-
-//Game.sync();
-
-module.exports = Game;
+    return sequelize.define('game', {
+        id: {
+            type: Sequelize.BIGINT(50),
+            autoIncrement: true,
+            primaryKey: true
+        },
+        title: Sequelize.STRING(100),
+        gameType: Sequelize.STRING(100),
+        totalRate: Sequelize.BIGINT,
+        price: Sequelize.STRING(100),
+        releaseCompany: Sequelize.STRING(100),
+        releaseDate: Sequelize.STRING(100),
+        studio: Sequelize.STRING(100),
+        createdAt: Sequelize.BIGINT,
+        updatedAt: Sequelize.BIGINT
+    }, {
+        timestamps: false
+    });
+};
