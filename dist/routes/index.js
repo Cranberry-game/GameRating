@@ -1,11 +1,18 @@
-'use strict';
+"use strict";
 
-var express = require('express');
-var router = express.Router();
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+//var express = require('express');
+//var router = express.Router();
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-module.exports = router;
+var router = exports.router = function router(app) {
+	app.route("/api").get(function (req, res, next) {
+		res.send("This is API!");
+	});
+	//app.use('/',router);
+	app.get("/", function (req, res, next) {
+		res.send("Hello! This is GameRating!");
+	});
+};
