@@ -3,23 +3,21 @@ const config  = require ("./config.js");
 const Game = require ("./model/Game.js");
 const Review = require ("./model/Review.js");
 const User = require ("./model/User.js");
-const GameList = require ("./model/Gamelist.js");
+const GameList = require ("./model/GameList.js");
 const Platform = require ("./model/Platform.js");
-//const addGame = require ("./operation_add/addGame.js");
 
-let now = Date.now();
-// let game = {
-//     title: "A",
-//     gameType: "RPG",
-//     totalRate: 4.7,
-//     price: "$324",
-//     releaseCompany: "EA",
-//     releaseDate: "2/3/2017",
-//     studio: "flag"
-// };
-//
-// let tmp = JSON.stringify(game);
-// addGame(game);
+import {addGame} from "./operation/addGame"
+let game = {
+    title: "A",
+    gameType: "RPG",
+    totalRate: 4.7,
+    price: "$324",
+    releaseCompany: "EA",
+    releaseDate: "2/3/2017",
+    studio: "flag"
+};
+
+let e = addGame(game);
 
 
 
@@ -34,7 +32,7 @@ let now = Date.now();
 //     console.log('created: ' + JSON.stringify(platform));
 // })();
 
-// //create a new user
+//create a new user
 // (async () => {
 //     let user = await User.create({
 //         email: "sss@ggg.com",

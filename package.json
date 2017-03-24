@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run build; node app_compile.js",
-    "build": "babel model -d model_compile; babel app.js -o app_compile.js; babel operation_add -d operation_add_compile"
+    "start": "npm run build; node app.js",
+    "build": "babel src -d dist"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
