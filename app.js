@@ -5,25 +5,23 @@ const Review = require ("./modle/Review.js");
 const User = require ("./modle/User.js");
 const GameList = require ("./modle/Gamelist.js");
 const Platform = require ("./modle/Platform.js");
+const addGame = require ("./operation_add/addGame.js");
+let g = {
+    title: "A",
+    gameType: "RPG",
+    totalRate: 4.7,
+    price: "$324",
+    releaseCompany: "EA",
+    releaseDate: "2/3/2017",
+    studio: "flag"
+};
 
-let now = Date.now();
+let tmp = JSON.stringify(g);
+// import {addGame} from "./operation_add/addGame.js";
+// addGame(tmp);
+addGame(tmp);
 
-// Create a new game
-// (async () => {
-//     let game = await Game.create({
-//         id: 1,
-//         title: "Witcher",
-//         gameType: "RPG",
-//         totalRate: 3.9,
-//         price: "$69",
-//         releaseCompany: "EA",
-//         releaseDate: "2/2/2017",
-//         studio: "DE",
-//         createdAt: now,
-//         updatedAt: now
-//     });
-//     console.log('created: ' + JSON.stringify(game));
-// })();
+
 
 //add the game platform
 // (async () => {
@@ -85,7 +83,6 @@ let now = Date.now();
 // })();
 
 //search a review
-
 // (async () => {
 //     let review = await Review.findAll({
 //         where: {
@@ -97,6 +94,7 @@ let now = Date.now();
 //         console.log(JSON.stringify(p));
 //     }
 // })();
+
 
 
 
