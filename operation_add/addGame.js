@@ -1,13 +1,13 @@
 /**
  * Created by WangYe on 3/24/17.
  */
-const Game = require ("../modle/Game.js");
+const Game = require ("./Game.js");
 
 //Create a new game
 
 let now = Date.now();
 
-export function addGame(game){
+module.exports = function addGame(game){
     (async () => {
         let game = await Game.create({
             title: game.title,

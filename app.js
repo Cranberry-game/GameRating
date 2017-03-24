@@ -1,25 +1,25 @@
 const Sequelize = require ("sequelize");
 const config  = require ("./config.js");
-const Game = require ("./modle/Game.js");
-const Review = require ("./modle/Review.js");
-const User = require ("./modle/User.js");
-const GameList = require ("./modle/Gamelist.js");
-const Platform = require ("./modle/Platform.js");
-const addGame = require ("./operation_add/addGame.js");
-let g = {
-    title: "A",
-    gameType: "RPG",
-    totalRate: 4.7,
-    price: "$324",
-    releaseCompany: "EA",
-    releaseDate: "2/3/2017",
-    studio: "flag"
-};
+const Game = require ("./model/Game.js");
+const Review = require ("./model/Review.js");
+const User = require ("./model/User.js");
+const GameList = require ("./model/Gamelist.js");
+const Platform = require ("./model/Platform.js");
+//const addGame = require ("./operation_add/addGame.js");
 
-let tmp = JSON.stringify(g);
-// import {addGame} from "./operation_add/addGame.js";
-// addGame(tmp);
-addGame(tmp);
+let now = Date.now();
+// let game = {
+//     title: "A",
+//     gameType: "RPG",
+//     totalRate: 4.7,
+//     price: "$324",
+//     releaseCompany: "EA",
+//     releaseDate: "2/3/2017",
+//     studio: "flag"
+// };
+//
+// let tmp = JSON.stringify(game);
+// addGame(game);
 
 
 
@@ -37,7 +37,6 @@ addGame(tmp);
 // //create a new user
 // (async () => {
 //     let user = await User.create({
-//         id: 1,
 //         email: "sss@ggg.com",
 //         name: "Wang",
 //         password: "123321",
