@@ -1,7 +1,7 @@
 let now = Date.now();
-export const addUser = (user,User)=>{
+export const addUser = (user,db)=>{
     (async () => {
-        let u = await User.create({
+        let u = await db.User.create({
             email: user.email,
             name: user.name,
             password: user.password,
@@ -18,9 +18,9 @@ export const addUser = (user,User)=>{
     })();
 };
 
-export const deleteUser = (id,User)=>{
+export const deleteUser = (id,db)=>{
     (async () => {
-         let user = await User.destroy({
+         let user = await db.User.destroy({
             where:{
                 id : id
             }
@@ -28,9 +28,9 @@ export const deleteUser = (id,User)=>{
     })();
 };
 
-export const queryUserById = (id,User)=>{
+export const queryUserById = (id, db)=>{
     return (async () => {
-                let user = await User.findAll({
+                let user = await db.User.findAll({
                 limit: 10,
                 where: {
                     id : id

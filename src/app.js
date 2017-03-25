@@ -44,13 +44,22 @@ User.belongsToMany(Game, {as: 'User', through: Review});
 Game.belongsToMany(User, {as: 'Game', through: Review});
 // Review.sync();
 
+let db = {
+    Game: Game,
+    GameList: GameList,
+    Creation: Creation,
+    Review: Review,
+    Platform: Platform,
+    User: User
+};
+
 let express = require('express');
 
 let app = express();
-app.set('Game',Game);
-app.set('User',User);
-app.set('Review',Review);
-app.set('Platform',Platform);
+app.set('db',db);
+// app.set('User',User);
+// app.set('Review',Review);
+// app.set('Platform',Platform);
 
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));

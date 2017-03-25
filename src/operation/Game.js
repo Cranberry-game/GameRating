@@ -1,7 +1,7 @@
 let now = Date.now();
-export const addGame = (game,Game)=>{
+export const addGame = (game,db)=>{
     (async () => {
-        let gamet = await Game.create({
+        let gamet = await db.Game.create({
             title: game.title,
             gameType: game.gameType,
             totalRate: game.totalRate,
@@ -16,9 +16,9 @@ export const addGame = (game,Game)=>{
     })();
 };
 
-export const deleteGame = (id,Game)=>{
+export const deleteGame = (id,db)=>{
     (async () => {
-        let game = await Game.destroy({
+        let game = await db.Game.destroy({
             where:{
                 id : id
             }
@@ -37,9 +37,9 @@ export const deleteGame = (id,Game)=>{
 // };
 
 
-export const queryGameById = (id,Game)=>{
+export const queryGameById = (id,db)=>{
     return (async () => {
-        let game = await Game.findAll({
+        let game = await db.Game.findAll({
             limit: 10,
             where: {
                 id : id
@@ -54,9 +54,9 @@ export const queryGameById = (id,Game)=>{
     })();
 };
 
-export const queryGameByName = (name,Game)=>{
+export const queryGameByName = (name,db)=>{
     return (async () => {
-        let game = await Game.findAll({
+        let game = await db.Game.findAll({
             limit: 10,
             where: {
                 title : {
