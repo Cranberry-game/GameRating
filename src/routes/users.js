@@ -14,8 +14,10 @@ export const router = express();
 router.route('/')
   .get(function(req, res, next) {
     if(req.query.id){
-          let ures = quid(req.query.id,router.get('User'));
+      (async()=>{
+          let ures = await quid(req.query.id,router.get('User'));
           res.send(ures);
+      })();
         }
     else {
           res.send("Error!");

@@ -16,13 +16,17 @@ export const router = express();
 router.route("/")
     .get((req,res,next)=>{
         if(req.query.id){
-          let gameres = qgid(req.query.id,router.get('Game'));
-          res.send(gameres);
+          (async ()=>{
+                let gameres = await qgid(req.query.id,router.get('Game'));
+                res.send(gameres);
+          })();
         }
         else if(req.query.name){
           //res.send(`queryName:${req.query.name}`);
-          let gameres = qgname(req.query.name,router.get('Game'));
-          res.send(gameres);
+          (async ()=>{
+                let gameres = await qgname(req.query.name,router.get('Game'));
+                res.send(gameres);
+          })();
         }
         else {
           res.send("Error!");
