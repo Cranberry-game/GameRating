@@ -1,6 +1,8 @@
 /**
  * Created by WangYe on 3/20/17.
- */const Sequelize = require("sequelize");
+ */
+
+const Sequelize = require("sequelize");
 
 export const defgl =(sequelize) => {
     return sequelize.define('gamelist', {
