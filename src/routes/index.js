@@ -10,12 +10,12 @@ export const router = (app) => {
 		res.send("Hello! This is GameRating!");
 	});
 
-
-  app.use('/game',(req,res,next)=>{
+  let prefix='/api/v1';
+  app.use(prefix+'/game',(req,res,next)=>{
     gamerouter.set('Game',app.get('Game'));
     next();
   },gamerouter);
-  app.use('/user',(req,res,next)=>{
+  app.use(prefix+'/user',(req,res,next)=>{
     gamerouter.set('User',app.get('User'));
     next();
   },userrouter);
