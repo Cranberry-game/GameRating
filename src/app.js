@@ -1,5 +1,12 @@
+import {defg} from './model/Game';
+import {defp} from './model/Platform';
+import {defr} from './model/Review';
+import {defu} from './model/User';
+import {defgl} from './model/GameList';
+import {defc} from './model/Creation';
 const Sequelize = require ("sequelize");
 const config  = require ("./config.js");
+
 
 let sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
@@ -12,155 +19,38 @@ let sequelize = new Sequelize(config.database, config.username, config.password,
 });
 
 let now = Date.now();
-//import {defgl} from './model/GameList';
-//let GameList = defgl(sequelize);
 
-import {defg} from './model/Game';
 let Game = defg(sequelize);
 //Game.sync();
 
-import {defu} from './model/User';
-let User = defu(sequelize);
+let User=defu(sequelize);
+//User.sync();
 
-import {defp} from './model/Platform';
-let PlatForm = defp(sequelize);
-PlatForm.belongsTo(Game);
-PlatForm.sync();
+let Platform = defp(sequelize);
+Platform.belongsTo(Game);
+//PlatForm.sync();
 
-import {defgl} from './model/GameList';
 let GameList = defgl(sequelize);
 GameList.belongsTo(User, {as: 'creator'});
-// GameList.sync();
+//GameList.sync();
 
-import {defc} from './model/Creation';
 let Creation = defc(sequelize);
 Game.belongsToMany(GameList, {as: 'game', through: Creation});
 GameList.belongsToMany(Game, {as: 'gamelist', through: Creation} );
 // Creation.sync();
 
-import {defr} from './model/Review';
 let Review = defr(sequelize);
 User.belongsToMany(Game, {as: 'User', through: Review});
 Game.belongsToMany(User, {as: 'Game', through: Review});
 // Review.sync();
 
-//import {addGame} from './operation/Game';
-// addGame({
-//             title: "Super Mario",
-//             gameType: "Run",
-//             totalRate: 5,
-//             price: "$10",
-//             releaseCompany: "N",
-//             releaseDate: "2017",
-//             studio: "default",
-// },Game);
-// import {defp} from './model/Platform';
-// let Platform = defp(sequelize);
+let express = require('express');
 
-// import {defr} from './model/Review';
-// let Review = defr(sequelize);
-
-// import {deru} from './model/User';
-// let User=deru(sequelize);
-//
-//import {queryGameById} from './operation/Game';
-//queryGameById(1,Game);
-
-//add the game platform
-// (async () => {
-//     let platform = await Platform.create({
-//         gameId: 1,
-//         platformName: "PS4",
-//         createdAt: now,
-//         updatedAt: now
-//     });
-//     console.log('created: ' + JSON.stringify(platform));
-// })();
-
-//create a new user
-// (async () => {
-//     let user = await User.create({
-//         email: "sss@ggg.com",
-//         name: "Wang",
-//         password: "123321",
-//         isAdmin: false,
-//         isVerified: false,
-//         avatar: "https://pbs.twimg.com/media/Cn4klgrXEAA7OZC.jpg",
-//         age: 23,
-//         address: "Boston",
-//         phone: "1233332213",
-//         createdAt: now,
-//         updatedAt: now
-//     });
-//     console.log('created: ' + JSON.stringify(user));
-// })();
-
-// //create a new review
-// (async () => {
-//     let review = await Review.create({
-//         id: 1,
-//         userId: 1,
-//         gameId: 1,
-//         rate: 2.9,
-//         content: "balabala",
-//         createdAt: now,
-//         updatedAt: now
-//     });
-//     console.log('created: ' + JSON.stringify(review));
-// })();
-
-//create gamelist
-
-// (async () => {
-//     let gameList = await GameList.create({
-//         id: 1,
-//         name: "Best RPG",
-//         img: "https://pbs.twimg.com/media/Cn4klgrXEAA7OZC.jpg",
-//         creatorId: 1,
-//         gameId: 1,
-//         createdAt: now,
-//         updatedAt: now
-//     });
-//     console.log('created: ' + JSON.stringify(gameList));
-// })();
-
-//search a review
-// (async () => {
-//     let review = await Review.findAll({
-//         where: {
-//             reviews: 1
-//         }
-//     });
-//     console.log(`find ${review.length} review:`);
-//     for (let p of review) {
-//         console.log(JSON.stringify(p));
-//     }
-// })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var express = require('express');
-//var path = require('path');
-//var favicon = require('serve-favicon');
-//var logger = require('morgan');
-// var cookieParser = require('cookie-parser');
-// var bodyParser = require('body-parser');
-
-//var index = require('./routes/index');
-//var users = require('./routes/users');
-
-var app = express();
+let app = express();
+app.set('Game',Game);
+app.set('User',User);
+app.set('Review',Review);
+app.set('Platform',Platform);
 
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));

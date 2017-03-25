@@ -4,7 +4,6 @@
 //Create a new game
 
 let now = Date.now();
-
 export const addGame = (game,Game)=>{
     (async () => {
         let gamet = await Game.create({
