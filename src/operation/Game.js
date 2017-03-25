@@ -22,14 +22,25 @@ export const addGame = (game,Game)=>{
     })();
 };
 
-export const deleteGame = (game,Game)=>{
-    
-
+export const deleteGame = (id,Game)=>{
+    (async () => {
+        let game = await Game.destroy({
+            where:{
+                id : id
+            }
+        });
+    })();
 };
 
-export const updateGame = (game,Game)=>{
-
-};
+// export const updateGame = (game,Game)=>{
+//     (async () => {
+//         let game = await Game.update({
+//             where:{
+//                 id : id
+//             }
+//         });
+//     })();
+// };
 
 
 export const queryGameById = (id,Game)=>{
@@ -46,6 +57,7 @@ export const queryGameById = (id,Game)=>{
     for (let p of game) {
         console.log(JSON.stringify(p));
     }
+    return JSON.stringify(game);
 })();
 };
 
@@ -65,5 +77,6 @@ export const queryGameByName = (name,Game)=>{
         for (let p of game) {
             console.log(JSON.stringify(p));
         }
+        return JSON.stringify(game);
     })();
 };

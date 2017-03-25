@@ -19,6 +19,31 @@ import {defg} from './model/Game';
 let Game = defg(sequelize);
 //Game.sync();
 
+import {defu} from './model/User';
+let User = defu(sequelize);
+
+import {defp} from './model/Platform';
+let PlatForm = defp(sequelize);
+PlatForm.belongsTo(Game);
+PlatForm.sync();
+
+import {defgl} from './model/GameList';
+let GameList = defgl(sequelize);
+GameList.belongsTo(User, {as: 'creator'});
+// GameList.sync();
+
+import {defc} from './model/Creation';
+let Creation = defc(sequelize);
+Game.belongsToMany(GameList, {as: 'game', through: Creation});
+GameList.belongsToMany(Game, {as: 'gamelist', through: Creation} );
+// Creation.sync();
+
+import {defr} from './model/Review';
+let Review = defr(sequelize);
+User.belongsToMany(Game, {as: 'User', through: Review});
+Game.belongsToMany(User, {as: 'Game', through: Review});
+// Review.sync();
+
 //import {addGame} from './operation/Game';
 // addGame({
 //             title: "Super Mario",

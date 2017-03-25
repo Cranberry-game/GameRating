@@ -11,8 +11,6 @@ export const defr = (sequelize)=>{
             autoIncrement: true,
             primaryKey: true
         },
-        userId: Sequelize.BIGINT(100),
-        gameId: Sequelize.BIGINT(100),
         rate: Sequelize.BIGINT,
         content: Sequelize.STRING(100),
         createdAt: Sequelize.BIGINT,

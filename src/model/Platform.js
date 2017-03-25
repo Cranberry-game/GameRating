@@ -6,16 +6,11 @@ const Sequelize = require("sequelize");
 export const defp = (sequelize)=>{
 
     return sequelize.define('platform', {
-        gameId: {
+        Id: {
             type: Sequelize.BIGINT(50),
             primaryKey: true
         },
-        platformName: {
-            type: Sequelize.STRING(50),
-            primaryKey: true
-        },
-        createdAt: Sequelize.BIGINT,
-        updatedAt: Sequelize.BIGINT
+        platformName: Sequelize.ENUM('Xbox One','PS4','Nintendo Switch','Wii U', 'PC'),
     }, {
         timestamps: false
     });
