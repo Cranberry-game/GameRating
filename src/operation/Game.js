@@ -23,6 +23,7 @@ export const addGame = (game,Game)=>{
 };
 
 export const deleteGame = (game,Game)=>{
+    
 
 };
 
@@ -35,13 +36,34 @@ export const queryGameById = (id,Game)=>{
     //search a game
 (async () => {
     let game = await Game.findAll({
+        limit: 10,
         where: {
             id : id
-        }
+        },
+        order : [['totalRate', 'DESC']]
     });
     console.log(`find ${game.length} game:`);
     for (let p of game) {
         console.log(JSON.stringify(p));
     }
 })();
+};
+
+export const queryGameByName = (name,Game)=>{
+    //search a game
+    (async () => {
+        let game = await Game.findAll({
+            limit: 10,
+            where: {
+                title : {
+                    $like: '%' + name + '%'
+                }
+            },
+            order : [['totalRate', 'DESC']]
+        });
+        console.log(`find ${game.length} game:`);
+        for (let p of game) {
+            console.log(JSON.stringify(p));
+        }
+    })();
 };
