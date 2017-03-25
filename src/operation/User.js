@@ -20,27 +20,27 @@ export const addUser = (user,User)=>{
 
 export const deleteUser = (id,User)=>{
     (async () => {
-        let user = await User.destroy({
+         let user = await User.destroy({
             where:{
                 id : id
             }
-        });
+         });
     })();
 };
 
 export const queryUserById = (id,User)=>{
-    (async () => {
-        let user = await User.findAll({
-            limit: 10,
-            where: {
-                id : id
-            },
-        });
-        console.log(`find ${user.length} user:`);
-        for (let p of user) {
-            console.log(JSON.stringify(p));
-        }
-        return JSON.stringify(user);
+    return (async () => {
+                let user = await User.findAll({
+                limit: 10,
+                where: {
+                    id : id
+                },
+            });
+            console.log(`find ${user.length} user:`);
+            for (let p of user) {
+                console.log(JSON.stringify(p));
+            }
+            return JSON.stringify(user);
     })();
 };
 
