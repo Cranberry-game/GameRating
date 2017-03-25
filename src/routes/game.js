@@ -17,14 +17,14 @@ router.route("/")
     .get((req,res,next)=>{
         if(req.query.id){
           (async ()=>{
-                let gameres = await qgid(req.query.id,router.get('Game'));
+                let gameres = await qgid(req.query.id,router.get('db'));
                 res.send(gameres);
           })();
         }
         else if(req.query.name){
           //res.send(`queryName:${req.query.name}`);
           (async ()=>{
-                let gameres = await qgname(req.query.name,router.get('Game'));
+                let gameres = await qgname(req.query.name,router.get('db'));
                 res.send(gameres);
           })();
         }
@@ -51,7 +51,7 @@ router.route("/")
             releaseCompany: req.body.releaseCompany,
             releaseDate: req.body.releaseDate,
             studio: req.body.studio
-        },router.get('Game'));
+        },router.get('db'));
         res.send(`Created Success${req.body.title}`);
 
 
