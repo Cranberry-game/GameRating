@@ -38,26 +38,24 @@ export const deleteGame = (id,Game)=>{
 
 
 export const queryGameById = (id,Game)=>{
-    //search a game
-(async () => {
-    let game = await Game.findAll({
-        limit: 10,
-        where: {
-            id : id
-        },
-        order : [['totalRate', 'DESC']]
-    });
-    console.log(`find ${game.length} game:`);
-    for (let p of game) {
-        console.log(JSON.stringify(p));
-    }
-    return JSON.stringify(game);
-})();
+    return (async () => {
+        let game = await Game.findAll({
+            limit: 10,
+            where: {
+                id : id
+            },
+            order : [['totalRate', 'DESC']]
+        });
+        console.log(`find ${game.length} game:`);
+        for (let p of game) {
+           console.log(JSON.stringify(p));
+        }
+        return JSON.stringify(game);
+    })();
 };
 
 export const queryGameByName = (name,Game)=>{
-    //search a game
-    (async () => {
+    return (async () => {
         let game = await Game.findAll({
             limit: 10,
             where: {
