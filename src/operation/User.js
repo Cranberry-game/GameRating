@@ -2,15 +2,15 @@ let now = Date.now();
 export const addUser = (user,User)=>{
     (async () => {
         let u = await User.create({
-            email: User.email,
-            name: User.name,
-            password: User.password,
-            isAdmin: User.isAdmin,
-            isVerified: User.isVerified,
-            avatar: User.avatar,
-            age: User.age,
-            address: User.email,
-            phone: User.phone,
+            email: user.email,
+            name: user.name,
+            password: user.password,
+            isAdmin: user.isAdmin,
+            isVerified: user.isVerified,
+            avatar: user.avatar,
+            age: user.age,
+            address: user.address,
+            phone: user.phone,
             createdAt: now,
             updatedAt: now
         });
@@ -20,27 +20,27 @@ export const addUser = (user,User)=>{
 
 export const deleteUser = (id,User)=>{
     (async () => {
-        let user = await User.destroy({
+         let user = await User.destroy({
             where:{
                 id : id
             }
-        });
+         });
     })();
 };
 
 export const queryUserById = (id,User)=>{
-    (async () => {
-        let user = await User.findAll({
-            limit: 10,
-            where: {
-                id : id
-            },
-        });
-        console.log(`find ${user.length} user:`);
-        for (let p of user) {
-            console.log(JSON.stringify(p));
-        }
-        return JSON.stringify(user);
+    return (async () => {
+                let user = await User.findAll({
+                limit: 10,
+                where: {
+                    id : id
+                },
+            });
+            console.log(`find ${user.length} user:`);
+            for (let p of user) {
+                console.log(JSON.stringify(p));
+            }
+            return JSON.stringify(user);
     })();
 };
 
