@@ -2,15 +2,15 @@ let now = Date.now();
 export const addUser = (user,User)=>{
     (async () => {
         let u = await User.create({
-            email: User.email,
-            name: User.name,
-            password: User.password,
-            isAdmin: User.isAdmin,
-            isVerified: User.isVerified,
-            avatar: User.avatar,
-            age: User.age,
-            address: User.email,
-            phone: User.phone,
+            email: user.email,
+            name: user.name,
+            password: user.password,
+            isAdmin: user.isAdmin,
+            isVerified: user.isVerified,
+            avatar: user.avatar,
+            age: user.age,
+            address: user.address,
+            phone: user.phone,
             createdAt: now,
             updatedAt: now
         });
