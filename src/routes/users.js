@@ -15,7 +15,7 @@ router.route('/')
   .get(function(req, res, next) {
     if(req.query.id){
       (async()=>{
-          let ures = await quid(req.query.id,router.get('User'));
+          let ures = await quid(req.query.id,router.get('db'));
           res.send(ures);
       })();
         }
@@ -44,7 +44,7 @@ router.route('/')
             age: req.body.age,
             address: req.body.email,
             phone: req.body.phone
-        },router.get('User'));
+        },router.get('db'));
         res.send('User Created');
   });
 

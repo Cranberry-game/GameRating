@@ -12,11 +12,11 @@ export const router = (app) => {
 
   let prefix='/api/v1';
   app.use(prefix+'/game',(req,res,next)=>{
-    gamerouter.set('Game',app.get('Game'));
+    gamerouter.set('db',app.get('db'));
     next();
   },gamerouter);
   app.use(prefix+'/user',(req,res,next)=>{
-    gamerouter.set('User',app.get('User'));
+    gamerouter.set('db',app.get('db'));
     next();
   },userrouter);
 
