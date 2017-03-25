@@ -28,7 +28,7 @@ let User=defu(sequelize);
 
 let Platform = defp(sequelize);
 Platform.belongsTo(Game);
-//PlatForm.sync();
+//Platform.sync();
 
 let GameList = defgl(sequelize);
 GameList.belongsTo(User, {as: 'creator'});
