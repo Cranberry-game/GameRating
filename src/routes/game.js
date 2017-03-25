@@ -3,10 +3,10 @@
 import {
     queryGameById as qgid,
     queryGameByName as qgname,
-    addGame as addg
+    addGame as addg,
+    deleteGame as dgame
 } from '../operation/Game';
 let bodyParser = require('body-parser');
-//app.use(express.bodyParser.json());
 
 let jsonParser = bodyParser.json({type:"application/json"});
 
@@ -16,13 +16,13 @@ export const router = express();
 router.route("/")
     .get((req,res,next)=>{
         if(req.query.id){
-          qgid(req.query.id,router.get('Game'));
-          res.send(`queryId:${req.query.id}`);
+          let gameres = qgid(req.query.id,router.get('Game'));
+          res.send(gameres);
         }
         else if(req.query.name){
           //res.send(`queryName:${req.query.name}`);
-          qgname(req.query.name,router.get('Game'));
-          res.send(`queryName:${req.query.name}`);
+          let gameres = qgname(req.query.name,router.get('Game'));
+          res.send(gameres);
         }
         else {
           res.send("Error!");
@@ -31,7 +31,7 @@ router.route("/")
 
     })
     .delete((req,res,next)=>{
-
+        //dgame(req.id,router.get('Game'));
 
 
 
