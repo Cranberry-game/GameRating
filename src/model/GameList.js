@@ -1,10 +1,3 @@
-/**
- * Created by WangYe on 3/20/17.
- */
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 const Sequelize = require("sequelize");
 
 export const defgl =(sequelize) => {

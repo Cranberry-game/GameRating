@@ -1,8 +1,3 @@
-/**
- * Created by WangYe on 3/24/17.
- */
-//Create a new game
-
 let now = Date.now();
 export const addGame = (game,Game)=>{
     (async () => {

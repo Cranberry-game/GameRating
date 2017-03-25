@@ -1,8 +1,4 @@
-/**
- * Created by WangYe on 3/20/17.
- */
 const Sequelize = require("sequelize");
-//const config  = require ("../config.js");
 
 export const defg = (sequelize)=>{
     

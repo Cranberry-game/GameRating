@@ -1,6 +1,3 @@
-/**
- * Created by WangYe on 3/20/17.
- */
 const Sequelize = require("sequelize");
 
 export const defp = (sequelize)=>{
