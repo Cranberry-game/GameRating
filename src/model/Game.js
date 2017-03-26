@@ -16,7 +16,8 @@ export const defg = (sequelize)=>{
     releaseDate: Sequelize.STRING(100),
     studio: Sequelize.STRING(100),
     createdAt: Sequelize.BIGINT,
-    updatedAt: Sequelize.BIGINT
+    updatedAt: Sequelize.BIGINT,
+    cover: Sequelize.STRING(100)
 }, {
     timestamps: false
 });

@@ -31,12 +31,13 @@ Game.hasMany(Platform);
 //Platform.sync();
 
 let GameList = defgl(sequelize);
-GameList.belongsTo(User, {as: 'creator'});
+User.hasMany(GameList);
+GameList.belongsTo(User);
 //GameList.sync();
 
 let Creation = defc(sequelize);
-Game.belongsToMany(GameList, {as: 'game', through: Creation});
-GameList.belongsToMany(Game, {as: 'gamelist', through: Creation} );
+Game.belongsToMany(GameList, {through: Creation});
+GameList.belongsToMany(Game, {through: Creation});
 //Creation.sync();
 
 let Review = defr(sequelize);
