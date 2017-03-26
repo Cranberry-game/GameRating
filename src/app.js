@@ -27,7 +27,7 @@ let User=defu(sequelize);
 //User.sync();
 
 let Platform = defp(sequelize);
-Platform.belongsTo(Game);
+Game.hasMany(Platform);
 //Platform.sync();
 
 let GameList = defgl(sequelize);
@@ -37,12 +37,16 @@ GameList.belongsTo(User, {as: 'creator'});
 let Creation = defc(sequelize);
 Game.belongsToMany(GameList, {as: 'game', through: Creation});
 GameList.belongsToMany(Game, {as: 'gamelist', through: Creation} );
-// Creation.sync();
+//Creation.sync();
 
 let Review = defr(sequelize);
-User.belongsToMany(Game, {as: 'User', through: Review});
-Game.belongsToMany(User, {as: 'Game', through: Review});
-// Review.sync();
+User.hasMany(Review);
+Game.hasMany(Review);
+Review.belongsTo(User);
+Review.belongsTo(Game);
+//Review.sync({force: true});
+
+//sequelize.sync({force: true});
 
 let db = {
     Game: Game,

@@ -8,7 +8,7 @@ export const defr = (sequelize)=>{
             autoIncrement: true,
             primaryKey: true
         },
-        rate: Sequelize.BIGINT,
+        rate: Sequelize.FLOAT,
         content: Sequelize.STRING(100),
         createdAt: Sequelize.BIGINT,
         updatedAt: Sequelize.BIGINT
