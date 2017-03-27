@@ -44,3 +44,17 @@ export const queryUserById = (id, db)=>{
     })();
 };
 
+export const queryUserByEmail = (email, db)=>{
+    return (async () => {
+        let user = await db.User.findAll({
+            where: {
+                email : email
+            },
+        });
+        console.log(`find user:`);
+        for (let p of user) {
+            console.log(JSON.stringify(p));
+        }
+        return JSON.stringify(user);
+    })();
+};

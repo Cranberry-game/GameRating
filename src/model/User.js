@@ -8,7 +8,10 @@ export const defu = (sequelize)=>{
             autoIncrement: true,
             primaryKey: true
         },
-        email: Sequelize.STRING(100),
+        email: {
+            type: Sequelize.STRING(100),
+            unique: true
+        },
         name: Sequelize.STRING(100),
         password: Sequelize.STRING(100),
         isAdmin: Sequelize.BOOLEAN,
