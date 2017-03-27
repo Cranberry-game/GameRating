@@ -1,6 +1,6 @@
 import {router as userrouter} from './users';
 import {router as gamerouter} from './game';
-
+import {router as lgrouter} from './login';
 /* GET home page. */
 //const Sequelize = require ("sequelize");
 
@@ -19,5 +19,9 @@ export const router = (app) => {
     gamerouter.set('db',app.get('db'));
     next();
   },userrouter);
-
+  app.use(prefix+'/login',(req,res,next)=>{
+    lgrouter.set('db',app.get('db'));
+    
+    next();
+  },lgrouter);
 };
