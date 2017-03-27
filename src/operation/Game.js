@@ -1,4 +1,18 @@
 let now = Date.now();
+
+//input example
+
+// let game = {
+//     title: 'CS',
+//     gameType: 'FPS',
+//     totalRate: 0,
+//     price: '$21',
+//     releaseCompany: 'V',
+//     releaseDate: '2/5/1998',
+//     studio: 'default',
+//     platform: ['Xbox one', 'PS4']
+// };
+
 export const addGame = (game,db)=>{
     let p = new Array(game.platform.length);
     for (let i = 0; i < p.length; i++){
@@ -47,10 +61,8 @@ export const deleteGame = (id,db)=>{
 export const queryGameById = (id,db)=>{
     return (async () => {
         let game = await db.Game.findById(id);
-        console.log(`find ${game.length} game:`);
-        for (let p of game) {
-           console.log(JSON.stringify(p));
-        }
+        console.log(`find game:`);
+        console.log(JSON.stringify(game));
         return game;
     })();
 };

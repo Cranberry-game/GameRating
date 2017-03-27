@@ -1,4 +1,19 @@
 let now = Date.now();
+
+//input example
+
+// let user = {
+//     email: 'wang.ye1@husky.neu.edu',
+//     name: 'Wang Ye',
+//     password: 123,
+//     isAdmin: true,
+//     isVerified: true,
+//     avatar: 'url://',
+//     age: 23,
+//     address: '1 Oak grove',
+//     phone: '857-407-9353',
+// };
+
 export const addUser = (user,db)=>{
     (async () => {
         let u = await db.User.create({
@@ -30,11 +45,8 @@ export const deleteUser = (id,db)=>{
 
 export const queryUserById = (id, db)=>{
     return (async () => {
-                let user = await db.User.findById(id);
-            console.log(`find ${user.length} user:`);
-            for (let p of user) {
-                console.log(JSON.stringify(p));
-            }
+            let user = await db.User.findById(id);
+            console.log(JSON.stringify(user));
             return user;
     })();
 };
