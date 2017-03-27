@@ -12,7 +12,7 @@ export const verify=(token)=>{
     return JSON.stringify(decoded);
 };
 export const tokenMid=(req,res,next)=>{
-    let token = req.query.token||req.body.token||req.headers['auth'];
+    let token = req.query.token||req.headers['auth'];
     if(token){
         jwt.verify(token,secret,(err,decoded)=>{
             if(err){
