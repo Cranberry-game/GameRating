@@ -31,7 +31,6 @@ export const queryReview = (gameId, db)=>{
                 attributes:['rate', 'content', 'userId']
             });
             console.log(JSON.stringify(reviews));
-            return JSON.stringify(reviews);
+            return reviews;
         })();
-
 };

@@ -30,17 +30,12 @@ export const deleteUser = (id,db)=>{
 
 export const queryUserById = (id, db)=>{
     return (async () => {
-                let user = await db.User.findAll({
-                limit: 10,
-                where: {
-                    id : id
-                },
-            });
+                let user = await db.User.findById(id);
             console.log(`find ${user.length} user:`);
             for (let p of user) {
                 console.log(JSON.stringify(p));
             }
-            return JSON.stringify(user);
+            return user;
     })();
 };
 
@@ -55,6 +50,6 @@ export const queryUserByEmail = (email, db)=>{
         for (let p of user) {
             console.log(JSON.stringify(p));
         }
-        return JSON.stringify(user);
+        return user;
     })();
 };

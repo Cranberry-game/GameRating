@@ -46,18 +46,12 @@ export const deleteGame = (id,db)=>{
 
 export const queryGameById = (id,db)=>{
     return (async () => {
-        let game = await db.Game.findAll({
-            limit: 10,
-            where: {
-                id : id
-            },
-            order : [['totalRate', 'DESC']]
-        });
+        let game = await db.Game.findById(id);
         console.log(`find ${game.length} game:`);
         for (let p of game) {
            console.log(JSON.stringify(p));
         }
-        return JSON.stringify(game);
+        return game;
     })();
 };
 
@@ -76,6 +70,6 @@ export const queryGameByName = (name,db)=>{
         for (let p of game) {
             console.log(JSON.stringify(p));
         }
-        return JSON.stringify(game);
+        return game;
     })();
 };

@@ -50,7 +50,7 @@ export const queryGameListByName = (gameListName, db)=>{
             };
         }
         console.log(JSON.stringify(res));
-        return JSON.stringify(res)
+        return res
     })();
 };
 
@@ -77,6 +77,6 @@ export const queryGameListByID = (gameListId, db)=>{
             games: g
         };
         console.log(JSON.stringify(res));
-        return JSON.stringify(res);
+        return res;
     })();
 };
