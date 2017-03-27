@@ -1,5 +1,9 @@
 let now = Date.now();
 export const addGame = (game,db)=>{
+    let p = new Array(game.platform.length);
+    for (let i = 0; i < p.length; i++){
+        p[i] = {platformName: game.platform[i]};
+    }
     (async () => {
         let gamet = await db.Game.create({
             title: game.title,
@@ -10,7 +14,10 @@ export const addGame = (game,db)=>{
             releaseDate: game.releaseDate,
             studio: game.studio,
             createdAt: now,
-            updatedAt: now
+            updatedAt: now,
+            platforms: p
+        }, {
+            include: [db.Platform]
         });
         console.log('created: ' + JSON.stringify(gamet));
     })();

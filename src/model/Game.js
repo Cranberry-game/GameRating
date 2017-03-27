@@ -10,13 +10,14 @@ export const defg = (sequelize)=>{
     },
     title: Sequelize.STRING(100),
     gameType: Sequelize.STRING(100),
-    totalRate: Sequelize.BIGINT,
+    totalRate: Sequelize.FLOAT,
     price: Sequelize.STRING(100),
     releaseCompany: Sequelize.STRING(100),
     releaseDate: Sequelize.STRING(100),
     studio: Sequelize.STRING(100),
     createdAt: Sequelize.BIGINT,
-    updatedAt: Sequelize.BIGINT
+    updatedAt: Sequelize.BIGINT,
+    cover: Sequelize.STRING(100)
 }, {
     timestamps: false
 });
