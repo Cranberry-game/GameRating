@@ -50,9 +50,11 @@ router.route("/")
             price: req.body.price,
             releaseCompany: req.body.releaseCompany,
             releaseDate: req.body.releaseDate,
-            studio: req.body.studio
+            studio: req.body.studio,
+            platform:req.body.platform
         },router.get('db'));
         res.send(`Created Success${req.body.title}`);
+
 
 
     });

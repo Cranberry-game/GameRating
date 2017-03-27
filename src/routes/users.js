@@ -42,7 +42,7 @@ router.route('/')
             isVerified: req.body.isVerified,
             avatar: req.body.avatar,
             age: req.body.age,
-            address: req.body.email,
+            address: req.body.address,
             phone: req.body.phone
         },router.get('db'));
         res.send('User Created');
