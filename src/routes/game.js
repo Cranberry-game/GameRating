@@ -1,5 +1,5 @@
 
-
+import {tokenMid} from './jwtauth';
 import {
     queryGameById as qgid,
     queryGameByName as qgname,
@@ -14,7 +14,7 @@ let express = require('express');
 export const router = express();
 //let Game= router.get('Game');
 router.route("/")
-    .get((req,res,next)=>{
+    .get(tokenMid,(req,res,next)=>{
         if(req.query.id){
           (async ()=>{
                 let gameres = await qgid(req.query.id,router.get('db'));
