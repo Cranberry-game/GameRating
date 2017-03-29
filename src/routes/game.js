@@ -39,7 +39,7 @@ router.route("/")
                     res.send(gameres);
                 }
           })();
-        }
+        } 
         else {
             res.status(400);
             res.send("Bad Request!");
@@ -56,7 +56,7 @@ router.route("/")
 
     })
     .post(jsonParser,async (req,res,next)=>{
-            await addg({
+            let suc = await addg({
             title: req.body.title,
             gameType: req.body.gameType,
             totalRate: req.body.totalRate,
@@ -66,7 +66,14 @@ router.route("/")
             studio: req.body.studio,
             platform:req.body.platform
         },router.get('db'));
-        res.send(`Created Success${req.body.title}`);
+        if(!suc){
+            res.status(409);
+            res.send("Create fails");
+        }
+        else{
+            res.status(201);
+            res.send(`Created Success${req.body.title}`);
+        }
 
 
 
