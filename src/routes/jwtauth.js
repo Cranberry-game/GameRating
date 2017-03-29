@@ -1,11 +1,7 @@
 let jwt = require('jsonwebtoken');
 let secret = 'secret';
 export const createToken=(user)=>{
-    return jwt.sign({
-        username:user.name,
-        avatar:user.avatar,
-        email:user.email
-    },secret);
+    return jwt.sign(user,secret);
 };
 export const verify=(token)=>{
     let decoded = jwt.verify(token,secret);
