@@ -74,10 +74,7 @@ export const queryGameByName = (name,db)=>{
         },
         order : [['totalRate', 'DESC']]
     }).then(function (g) {
-        console.log("find " + g.length + " games");
-        for(let p in g){
-            console.log(JSON.stringify(p));
-        }
+        console.log(JSON.stringify(g));
         return g;
     }).catch(function (err) {
         console.log(err.name);

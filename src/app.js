@@ -58,6 +58,9 @@ let db = {
     User: User
 };
 
+import {queryGameByName} from './operation/Game';
+queryGameByName("gt", db);
+
 let express = require('express');
 
 let app = express();
