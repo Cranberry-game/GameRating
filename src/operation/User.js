@@ -62,7 +62,11 @@ export const queryUserById = (id, db)=>{
 };
 
 export const queryUserByEmail = (email, db)=>{
-    return db.User.findAll(email, db)
+    return db.User.findAll({
+        where:{
+            email: email,
+        }
+    })
         .then(function (u) {
             console.log("find: " + JSON.stringify(u));
             return u;
