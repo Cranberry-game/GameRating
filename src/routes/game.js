@@ -55,6 +55,7 @@ router.route("/")
 
 
     })
+    //add a game
     .post(jsonParser,async (req,res,next)=>{
             let suc = await addg({
             title: req.body.title,

@@ -2,6 +2,7 @@ import {router as userrouter} from './users';
 import {router as gamerouter} from './game';
 import {router as lgrouter} from './login';
 import {router as rvrouter} from './review';
+import {router as glrouter} from './gamelist';
 /* GET home page. */
 //const Sequelize = require ("sequelize");
 
@@ -30,4 +31,10 @@ export const router = (app) => {
     next();
 
   },rvrouter);
+  app.use(prefix+'/gamelist',(req,res,next)=>{
+    glrouter.set('db',app.get('db'));
+    next();
+
+
+  },glrouter);
 };
