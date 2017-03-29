@@ -4,7 +4,10 @@ import {
 } from '../operation/GameList';
 let express = require('express');
 export const router = express();
-let GameList = router.get('GameList');
+
+let bodyParser = require('body-parser');
+let jsonParser = bodyParser.json({type:"application/json"});
+
 router.route("/")
     .get(async (req,res,next)=>{
         if(req.query.id){
