@@ -10,31 +10,44 @@ let now = Date.now();
 // };
 
 export const addReview = (review,db)=>{
-    (async () => {
-        let user = await db.User.findById(review.userId);
-        let game = await db.Game.findById(review.gameId);
-        let r = await db.Review.create({
+    Promise.all([
+        db.User.findById(review.userId),
+        db.Game.findById(review.gameId),
+        db.Review.create({
             rate: review.rate,
             content: review.content,
             createdAt: now,
             updatedAt: now,
-        });
-        await user.addReview(r);
-        await game.addReview(r);
-        await updateRate(game);
-        //console.log('created: ' + JSON.stringify(r));
-    })();
+        })
+    ]).then(function (value) {
+        (async()=>{
+            await value[0].addReview(value[2]);
+            await value[1].addReview(value[2]);
+            await updateRate(value[1]);
+            console.log("Create " + JSON.stringify(value[2]));
+        })();
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    });
 };
 
 export const queryReview = (gameId, db)=>{
-    return (async () => {
-            let game = await db.Game.findById(gameId);
-            let reviews = await game.getReviews({
-                attributes:['rate', 'content', 'userId']
+    return db.Game.findById(gameId).then(function (g) {
+        return (async()=>{
+            let reviews = await g.getReviews({
+                attributes: ['rate', 'content', 'userId']
             });
-            console.log(JSON.stringify(reviews));
+            console.log("find " + reviews.length + " reviews")
+            for(let i = 0; i < reviews.length; i++){
+                console.log(JSON.stringify(reviews[i]));
+            }
             return reviews;
         })();
+    }).catch(function (err) {
+            console.log(err.name);
+            return false;
+    });
 };
 
 export const updateRate = (game)=>{

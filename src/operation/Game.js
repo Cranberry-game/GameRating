@@ -18,70 +18,69 @@ export const addGame = (game,db)=>{
     for (let i = 0; i < p.length; i++){
         p[i] = {platformName: game.platform[i]};
     }
-    (async () => {
-        let gamet = await db.Game.create({
-            title: game.title,
-            gameType: game.gameType,
-            totalRate: game.totalRate,
-            price: game.price,
-            releaseCompany: game.releaseCompany,
-            releaseDate: game.releaseDate,
-            studio: game.studio,
-            createdAt: now,
-            updatedAt: now,
-            platforms: p
-        }, {
-            include: [db.Platform]
-        });
-        console.log('created: ' + JSON.stringify(gamet));
-    })();
+    return db.Game.create({
+        title: game.title,
+        gameType: game.gameType,
+        totalRate: game.totalRate,
+        price: game.price,
+        releaseCompany: game.releaseCompany,
+        releaseDate: game.releaseDate,
+        studio: game.studio,
+        createdAt: now,
+        updatedAt: now,
+        platforms: p
+    }, {
+        include: [db.Platform]
+    }).then(function (g) {
+        console.log("create" + JSON.stringify(g));
+        return g;
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    })
 };
 
 export const deleteGame = (id,db)=>{
-    (async () => {
-        let game = await db.Game.destroy({
-            where:{
-                id : id
-            }
-        });
-    })();
+    db.Game.destroy({
+        where:{
+            id : id
+        }
+    }).then(function (g) {
+        console.log("Delete " + g + " Game");
+        return true
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    })
 };
 
-// export const updateGame = (game,Game)=>{
-//     (async () => {
-//         let game = await Game.update({
-//             where:{
-//                 id : id
-//             }
-//         });
-//     })();
-// };
-
-
 export const queryGameById = (id,db)=>{
-    return (async () => {
-        let game = await db.Game.findById(id);
-        console.log(`find game:`);
-        console.log(JSON.stringify(game));
-        return game;
-    })();
+    db.Game.findById(id).then(function (g) {
+        console.log("find: " + JSON.stringify(g));
+        return g;
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    })
 };
 
 export const queryGameByName = (name,db)=>{
-    return (async () => {
-        let game = await db.Game.findAll({
-            limit: 10,
-            where: {
-                title : {
-                    $like: '%' + name + '%'
-                }
-            },
-            order : [['totalRate', 'DESC']]
-        });
-        console.log(`find ${game.length} game:`);
-        for (let p of game) {
+    db.Game.findAll({
+        limit: 10,
+        where: {
+            title : {
+                $like: '%' + name + '%'
+            }
+        },
+        order : [['totalRate', 'DESC']]
+    }).then(function (g) {
+        console.log("find " + g.length + " games");
+        for(let p in g){
             console.log(JSON.stringify(p));
         }
-        return game;
-    })();
+        return g;
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    })
 };

@@ -15,8 +15,7 @@ let now = Date.now();
 // };
 
 export const addUser = (user,db)=>{
-    (async () => {
-        let u = await db.User.create({
+    return db.User.create({
             email: user.email,
             name: user.name,
             password: user.password,
@@ -28,40 +27,47 @@ export const addUser = (user,db)=>{
             phone: user.phone,
             createdAt: now,
             updatedAt: now
+        }).then(function (u) {
+            console.log('created: ' + JSON.stringify(u));
+            return u;
+        }).catch(function (err) {
+            console.log(err.name);
+            return false;
         });
-        console.log('created: ' + JSON.stringify(u));
-    })();
 };
 
 export const deleteUser = (id,db)=>{
-    (async () => {
-         let user = await db.User.destroy({
-            where:{
-                id : id
-            }
-         });
-    })();
+    return db.User.destroy({
+        where:{
+            id: id
+        }
+    }).then(function (u) {
+        console.log("Delete " + u + " user");
+        return true;
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    })
 };
 
 export const queryUserById = (id, db)=>{
-    return (async () => {
-            let user = await db.User.findById(id);
-            console.log(JSON.stringify(user));
-            return user;
-    })();
+    return db.User.findById(id)
+        .then(function (u){
+            console.log("find: " + JSON.stringify(u));
+            return u;
+    }).catch(function (err) {
+            console.log(err.name);
+            return false;
+        })
 };
 
 export const queryUserByEmail = (email, db)=>{
-    return (async () => {
-        let user = await db.User.findAll({
-            where: {
-                email : email
-            },
-        });
-        console.log(`find user:`);
-        for (let p of user) {
-            console.log(JSON.stringify(p));
-        }
-        return user;
-    })();
+    return db.User.findAll(email, db)
+        .then(function (u) {
+            console.log("find: " + JSON.stringify(u));
+            return u;
+    }).catch(function () {
+            console.log(err.name);
+            return false;
+    })
 };
