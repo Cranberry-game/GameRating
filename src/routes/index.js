@@ -36,5 +36,5 @@ export const router = (app) => {
     next();
 
 
-  })
+  },glrouter);
 };
