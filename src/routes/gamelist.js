@@ -41,9 +41,23 @@ router.route("/")
 
 
     })
-    .post((req,res,next)=>{
+    //add a gamelist
+    .post(jsonParser,async (req,res,next)=>{
       //if(req.header('type')=='add')
-
+        let suc = await addg({
+            userId: req.body.userId,
+            gameId: req.body.gameId,
+            name: req.body.name,
+            img: req.body.img
+        },router.get('db'));
+        if(!suc){
+            res.status(409);
+            res.send("Create fails");
+        }
+        else{
+            res.status(201);
+            res.send(`Created ${req.body.name} Success`);
+        }
 
 
     });
