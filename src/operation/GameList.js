@@ -91,5 +91,6 @@ export const queryGameListByID = (gameListId, db)=>{
         })();
     }).catch(function (err) {
         console.log(err.name);
+        return false;
     });
 };
