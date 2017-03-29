@@ -15,6 +15,7 @@ router.route('/')
         let pswd=req.body.password;
         
         if(!(email&&pswd)) {
+            res.status(400);
             res.send('Invalid');
 
         }
@@ -22,15 +23,18 @@ router.route('/')
                 let users=await findU(email,router.get('db'));
                 let user = users[0];
                 if(!user||user.password!=pswd){
+                    res.status(401);
                     res.send("User name or password is invalid!");
                 }
                 else 
                 {
-                    res.send(cT({
-                    username:user.name,
-                    avatar:user.avatar,
-                    email:user.email
-                    }));
+                    res.send({
+                    token:cT({
+                        username:user.name,
+                        avatar:user.avatar,
+                        email:user.email}),
+                    expire:"infinite"
+                });
                 }
                 
         };

@@ -18,18 +18,31 @@ router.route("/")
         if(req.query.id){
           (async ()=>{
                 let gameres = await qgid(req.query.id,router.get('db'));
-                res.send(gameres);
+                if(!gameres){
+                    res.status(404);
+                    res.send("Cannot find");
+                }
+                else{
+                    res.send(gameres);
+                }
           })();
         }
         else if(req.query.name){
           //res.send(`queryName:${req.query.name}`);
           (async ()=>{
                 let gameres = await qgname(req.query.name,router.get('db'));
-                res.send(gameres);
+                if(!gameres[0]){
+                    res.status(404);
+                    res.send("Cannot find");
+                }
+                else{
+                    res.send(gameres);
+                }
           })();
         }
         else {
-          res.send("Error!");
+            res.status(400);
+            res.send("Bad Request!");
         }
 
 
@@ -42,17 +55,19 @@ router.route("/")
 
 
     })
-    .post(jsonParser,(req,res,next)=>{
-        addg({
+    .post(jsonParser,async (req,res,next)=>{
+            await addg({
             title: req.body.title,
             gameType: req.body.gameType,
             totalRate: req.body.totalRate,
             price: req.body.price,
             releaseCompany: req.body.releaseCompany,
             releaseDate: req.body.releaseDate,
-            studio: req.body.studio
+            studio: req.body.studio,
+            platform:req.body.platform
         },router.get('db'));
         res.send(`Created Success${req.body.title}`);
+
 
 
     });

@@ -1,6 +1,7 @@
 import {router as userrouter} from './users';
 import {router as gamerouter} from './game';
 import {router as lgrouter} from './login';
+import {router as rvrouter} from './review';
 /* GET home page. */
 //const Sequelize = require ("sequelize");
 
@@ -24,4 +25,9 @@ export const router = (app) => {
     
     next();
   },lgrouter);
+  app.use(prefix+'/review',(req,res,next)=>{
+    rvrouter.set('db',app.get('db'));
+    next();
+
+  },rvrouter);
 };

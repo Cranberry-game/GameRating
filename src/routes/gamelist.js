@@ -1,23 +1,34 @@
 import {
-    queryGameById as qgid,
-    queryGameByName as qgname
-} from '../operation/Game';
+    queryGameListByID as qglid,
+    queryGameListByName as qglname
+} from '../operation/GameList';
 let express = require('express');
 export const router = express();
 let GameList = router.get('GameList');
 router.route("/")
-    .get((req,res,next)=>{
+    .get(async (req,res,next)=>{
         if(req.query.id){
-          qgid(req.query.id,GameList);
-          res.send(`queryId:${req.query.id}`);
+          let glres = await qglid(req.query.id,GameList);
+          if(!glres){
+            res.status(404);
+            res.send('Not Found');
+          }else{
+            res.send(glres);
+          }
         }
         else if(req.query.name){
           //res.send(`queryName:${req.query.name}`);
-          qgname(req.query.name,GameList);
-          res.send(`queryName:${req.query.name}`);
+          let glres = qglname(req.query.name,GameList);
+          if(!glres[0]){
+            res.status(404);
+            res.send('Not Found');            
+          }else{
+            res.send(glres);
+          }
         }
         else {
-          res.send("Error!");
+          res.status(400);
+          res.send("Bad request!");
         }
 
 
@@ -31,7 +42,7 @@ router.route("/")
 
     })
     .post((req,res,next)=>{
-
+      //if(req.header('type')=='add')
 
 
 
