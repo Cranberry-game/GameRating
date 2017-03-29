@@ -55,7 +55,7 @@ export const deleteGame = (id,db)=>{
 };
 
 export const queryGameById = (id,db)=>{
-    db.Game.findById(id).then(function (g) {
+    return db.Game.findById(id).then(function (g) {
         console.log("find: " + JSON.stringify(g));
         return g;
     }).catch(function (err) {
@@ -65,7 +65,7 @@ export const queryGameById = (id,db)=>{
 };
 
 export const queryGameByName = (name,db)=>{
-    db.Game.findAll({
+    return db.Game.findAll({
         limit: 10,
         where: {
             title : {
