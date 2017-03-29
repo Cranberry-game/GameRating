@@ -16,14 +16,16 @@ export const tokenMid=(req,res,next)=>{
     if(token){
         jwt.verify(token,secret,(err,decoded)=>{
             if(err){
-                res.send('Failed');
+                res.status(401);
+                res.send('Authorization Failed');
+            }else{
+                req.decoded = decoded;
+                next();
             }
-            req.decoded = decoded;
-            next();
-
         })
     }else{
-        res.send('No valid');
+        res.status(401);
+        res.send('Unauthorized');
     }
 };
 

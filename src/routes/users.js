@@ -16,10 +16,15 @@ router.route('/')
     if(req.query.id){
       (async()=>{
           let ures = await quid(req.query.id,router.get('db'));
+          if(!ures) {
+            res.status(404);
+            res.end("Cannot find");
+          }
           res.send(ures);
       })();
         }
     else {
+          res.status(400);
           res.send("Error!");
         }
 
@@ -33,18 +38,25 @@ router.route('/')
 
 
   })
-  .post(jsonParser,(req,res,next)=>{
-    addu({
+  .post(jsonParser,async (req,res,next)=>{
+    let err = await addu({
             email: req.body.email,
             name: req.body.name,
             password: req.body.password,
-            isAdmin: req.body.isAdmin,
-            isVerified: req.body.isVerified,
+            isAdmin: false,
+            isVerified: true,
             avatar: req.body.avatar,
             age: req.body.age,
             address: req.body.address,
             phone: req.body.phone
         },router.get('db'));
-        res.send('User Created');
+        if(err==false){
+          res.status(409);
+          res.send('Created failed');
+        }
+        else {
+          res.status(201);
+          res.send('User Created');
+        }
   });
 
