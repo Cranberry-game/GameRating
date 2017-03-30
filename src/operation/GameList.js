@@ -23,7 +23,7 @@ export const addGameList = (gameList,db)=>{
             updatedAt: now
         }),
     ]).then(function (value) {
-        (async()=>{
+        return (async()=>{
             let games = new Array(gameList.gameId.length);
             for (let i = 0; i < games.length; i++){
                 games[i] = await db.Game.findById(gameList.gameId[i]);
@@ -127,4 +127,9 @@ export const addGameToGameList = (gameId, gameListId, db)=>{
         console.log(err.name);
         return false;
     })
+};
+
+export const removeGameInGameList = (gameId, gameListId, db)=>{
+
+
 };
