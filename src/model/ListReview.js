@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 
-export const defr = (sequelize)=>{
+export const deflr = (sequelize)=>{
 
-    return sequelize.define('review', {
+    return sequelize.define('listreview', {
         id: {
             type: Sequelize.BIGINT(50),
             autoIncrement: true,

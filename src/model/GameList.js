@@ -9,6 +9,8 @@ export const defgl =(sequelize) => {
     },
     name: Sequelize.STRING(100),
     img: Sequelize.STRING(100),
+    description: Sequelize.STRING(500),
+    totalRate: Sequelize.FLOAT,
     createdAt: Sequelize.BIGINT,
     updatedAt: Sequelize.BIGINT
 }, {

@@ -5,6 +5,8 @@
 //     userId: 1,
 //     gameId: [1,2],
 //     name: 'Best RPG',
+//     description: "good game list",
+//     totalRate: 2,
 //     img: 'URL://',
 // };
 //
@@ -15,6 +17,8 @@ export const addGameList = (gameList,db)=>{
         db.GameList.create({
             name: gameList.name,
             img: gameList.img,
+            description: gameList.description,
+            totalRate: gameList.totalRate,
             createdAt: now,
             updatedAt: now
         }),
@@ -27,6 +31,7 @@ export const addGameList = (gameList,db)=>{
             await value[1].addGames(games);
             await value[0].addGamelist(value[1]);
             console.log("Create " + JSON.stringify(value[1]));
+            return true;
         })();
     }).catch(function (err) {
         console.log(err.name);
@@ -93,4 +98,18 @@ export const queryGameListByID = (gameListId, db)=>{
         console.log(err.name);
         return false;
     });
+};
+
+export const deleteGameList = (gameListId, db) =>{
+    return db.GameList.destroy({
+        where:{
+            id : gameListId,
+        }
+    }).then(function (gl) {
+        console.log("delete " + gl + " game lists");
+        return true;
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    })
 };

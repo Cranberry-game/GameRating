@@ -4,6 +4,7 @@ import {defr} from './model/Review';
 import {defu} from './model/User';
 import {defgl} from './model/GameList';
 import {defc} from './model/Creation';
+import {deflr} from './model/ListReview';
 const Sequelize = require ("sequelize");
 const config  = require ("./config.js");
 
@@ -27,7 +28,7 @@ let User=defu(sequelize);
 //User.sync();
 
 let Platform = defp(sequelize);
-Game.hasMany(Platform);
+Game.hasMany(Platform, {onDelete: 'cascade'});
 //Platform.sync();
 
 let GameList = defgl(sequelize);
@@ -41,11 +42,18 @@ GameList.belongsToMany(Game, {through: Creation});
 //Creation.sync();
 
 let Review = defr(sequelize);
-User.hasMany(Review);
-Game.hasMany(Review);
-Review.belongsTo(User);
-Review.belongsTo(Game);
+User.hasMany(Review, {onDelete: 'cascade'});
+Game.hasMany(Review, {onDelete: 'cascade'});
+//Review.belongsTo(User);
+//Review.belongsTo(Game);
 //Review.sync({force: true});
+
+let ListReview = deflr(sequelize);
+User.hasMany(ListReview, {onDelete: 'cascade'});
+GameList.hasMany(ListReview, {onDelete: 'cascade'});
+//ListReview.belongsTo(User);
+//ListReview.belongsTo(GameList);
+//ListReview.sync({force: true});
 
 //sequelize.sync({force: true});
 
@@ -55,7 +63,8 @@ let db = {
     Creation: Creation,
     Review: Review,
     Platform: Platform,
-    User: User
+    User: User,
+    ListReview: ListReview
 };
 
 

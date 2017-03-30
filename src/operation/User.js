@@ -70,7 +70,7 @@ export const queryUserByEmail = (email, db)=>{
         .then(function (u) {
             console.log("find: " + JSON.stringify(u));
             return u;
-    }).catch(function () {
+    }).catch(function (err) {
             console.log(err.name);
             return false;
     })

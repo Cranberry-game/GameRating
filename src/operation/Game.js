@@ -10,7 +10,9 @@ let now = Date.now();
 //     releaseCompany: 'V',
 //     releaseDate: '2/5/1998',
 //     studio: 'default',
+//     description: 'good game',
 //     platform: ['Xbox one', 'PS4']
+//     cover: 'url://';
 // };
 
 export const addGame = (game,db)=>{
@@ -20,12 +22,14 @@ export const addGame = (game,db)=>{
     }
     return db.Game.create({
         title: game.title,
+        description: game.description,
         gameType: game.gameType,
         totalRate: game.totalRate,
         price: game.price,
         releaseCompany: game.releaseCompany,
         releaseDate: game.releaseDate,
         studio: game.studio,
+        cover: game.cover,
         createdAt: now,
         updatedAt: now,
         platforms: p
@@ -33,7 +37,7 @@ export const addGame = (game,db)=>{
         include: [db.Platform]
     }).then(function (g) {
         console.log("create" + JSON.stringify(g));
-        return g;
+        return true;
     }).catch(function (err) {
         console.log(err.name);
         return false;
@@ -56,8 +60,28 @@ export const deleteGame = (id,db)=>{
 
 export const queryGameById = (id,db)=>{
     return db.Game.findById(id).then(function (g) {
-        console.log("find: " + JSON.stringify(g));
-        return g;
+        (async()=>{
+            let p = await g.getPlatforms({
+                attributes: ['platformName'],
+            });
+            let res = {
+                id: g.id,
+                title: g.title,
+                description: g.description,
+                gameType: g.gameType,
+                totalRate: g.totalRate,
+                price: g.price,
+                releaseCompany: g.releaseCompany,
+                releaseDate: g.releaseDate,
+                studio: g.studio,
+                cover: g.cover,
+                createdAt: g.createdAt,
+                updatedAt: g.updatedAt,
+                platforms: p
+            };
+            console.log(JSON.stringify(res));
+            return res;
+        })();
     }).catch(function (err) {
         console.log(err.name);
         return false;

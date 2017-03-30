@@ -2,27 +2,28 @@ let now = Date.now();
 
 // input example
 
-// let review = {
+// let listReview = {
 //     userId: 1,
 //     rate: 4.6,
 //     content: "good",
-//     gameId:8
+//     gameListId: 8
 // };
 
-export const addReview = (review,db)=>{
+export const addListReview = (listReview,db)=>{
     Promise.all([
-        db.User.findById(review.userId),
-        db.Game.findById(review.gameId),
-        db.Review.create({
-            rate: review.rate,
-            content: review.content,
+        db.User.findById(listReview.userId),
+        db.GameList.findById(listReview.gameListId),
+        db.ListReview.create({
+            rate: listReview.rate,
+            content: listReview.content,
             createdAt: now,
             updatedAt: now,
         })
     ]).then(function (value) {
         (async()=>{
-            await value[0].addReview(value[2]);
-            await value[1].addReview(value[2]);
+            console.log(JSON.stringify(value[1]));
+            await value[0].addListreview(value[2]);
+            await value[1].addListreview(value[2]);
             await updateRate(value[1]);
             console.log("Create " + JSON.stringify(value[2]));
             return true;
@@ -33,10 +34,10 @@ export const addReview = (review,db)=>{
     });
 };
 
-export const queryReview = (gameId, db)=>{
-    return db.Game.findById(gameId).then(function (g) {
+export const queryListReview = (gameListId, db)=>{
+    return db.GameList.findById(gameListId).then(function (g) {
         return (async()=>{
-            let reviews = await g.getReviews({
+            let reviews = await g.getListreviews({
                 attributes: ['rate', 'content', 'userId']
             });
             console.log("find " + reviews.length + " reviews")
@@ -46,30 +47,30 @@ export const queryReview = (gameId, db)=>{
             return reviews;
         })();
     }).catch(function (err) {
-            console.log(err.name);
-            return false;
+        console.log(err.name);
+        return false;
     });
 };
 
-export const updateRate = (game)=>{
+export const updateRate = (gameList)=>{
     (async()=>{
-        let reviews = await game.getReviews();
+        let reviews = await gameList.getListreviews();
         let newRate = 0;
         for (let i = 0; i < reviews.length; i++){
             newRate += reviews[i].rate;
         }
-        game.totalRate = newRate/reviews.length;
-        await game.save();
+        gameList.totalRate = newRate/reviews.length;
+        await gameList.save();
     })();
 };
 
-export const deleteReview = (reviewId, db)=>{
-    return db.Review.destroy({
+export const deleteListReview = (ListReviewId, db)=>{
+    return db.ListReview.destroy({
         where:{
-            id: reviewId,
+            id: ListReviewId,
         }
     }).then(function (r) {
-        console.log("Delete " + r + " reviews");
+        console.log("Delete " + r + " list reviews");
         return true;
     }).catch(function (err) {
         console.log(err.name);
