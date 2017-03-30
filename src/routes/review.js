@@ -17,7 +17,7 @@ router.route("/")
         }
         else{
             let reviews = await qrv(req.query.gid,router.get('db'));
-            if(!reviews){
+            if(!reviews[0]){
                 res.status(404);
                 res.send('Cannot find');
             }

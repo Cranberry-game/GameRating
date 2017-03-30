@@ -13,17 +13,18 @@ let jsonParser = bodyParser.json({type:"application/json"});
 router.route("/")
     .get(async (req,res,next)=>{
         if(req.query.id){
-          let glres = await qglid(req.query.id,GameList);
+          let glres = await qglid(req.query.id,router.get('db'));
           if(!glres){
             res.status(404);
             res.send('Not Found');
+            //res.send(glres);
           }else{
             res.send(glres);
           }
         }
         else if(req.query.name){
           //res.send(`queryName:${req.query.name}`);
-          let glres = qglname(req.query.name,GameList);
+          let glres = await qglname(req.query.name,router.get('db'));
           if(!glres[0]){
             res.status(404);
             res.send('Not Found');            
@@ -60,11 +61,13 @@ router.route("/")
     //add a gamelist
     .post(jsonParser,async (req,res,next)=>{
       //if(req.header('type')=='add')
-        let suc = await addg({
+        let suc = await addgl({
             userId: req.body.userId,
             gameId: req.body.gameId,
             name: req.body.name,
-            img: req.body.img
+            img: req.body.img,
+            totalRate:req.body.totalRate,
+            description:req.body.description 
         },router.get('db'));
         if(!suc){
             res.status(409);

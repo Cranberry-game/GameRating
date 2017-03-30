@@ -17,7 +17,7 @@ router.route("/")
             res.send('Not valid query');
         }
         else{
-            let reviews = await qrv(req.query.gid,router.get('db'));
+            let reviews = await qrv(req.query.glid,router.get('db'));
             if(!reviews){
                 res.status(404);
                 res.send('Cannot find');
