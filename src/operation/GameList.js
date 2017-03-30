@@ -113,3 +113,18 @@ export const deleteGameList = (gameListId, db) =>{
         return false;
     })
 };
+
+export const addGameToGameList = (gameId, gameListId, db)=>{
+    let gl;
+    return db.GameList.findById(gameListId).then(function (gameList) {
+        gl = gameList;
+        db.Game.findById(gameId)
+    }).then(function (g) {
+        gl.addGame(g);
+    }).then(function () {
+        return true;
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    })
+};

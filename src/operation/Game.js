@@ -45,7 +45,7 @@ export const addGame = (game,db)=>{
 };
 
 export const deleteGame = (id,db)=>{
-    db.Game.destroy({
+    return db.Game.destroy({
         where:{
             id : id
         }
@@ -103,5 +103,21 @@ export const queryGameByName = (name,db)=>{
     }).catch(function (err) {
         console.log(err.name);
         return false;
+    })
+};
+
+export const updateGame = (game, db)=>{
+    return db.Game.findById(game.id).then(function (g) {
+        g.update({
+            'title': game.title,
+            'gameType': game.type,
+            'price': game.price,
+            'releaseCompany': game.releaseCompany,
+            'releaseDate': game.releaseDate,
+            'studio': game.studio,
+            'updatedAt': now,
+            'cover': game.cover,
+            'description': game.description,
+        })
     })
 };

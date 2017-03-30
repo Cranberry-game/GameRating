@@ -75,3 +75,34 @@ export const queryUserByEmail = (email, db)=>{
             return false;
     })
 };
+
+export const queryAllUser = (db)=>{
+    return db.User.findAll().then(function (users) {
+        console.log(JSON.stringify(users));
+        return users;
+    }).catch(function (err) {
+        console.log(err.name);
+    })
+};
+
+export const updateUser = (user, db)=>{
+    return db.User.findById(user.id).then(function (u) {
+        u.update({
+            'name': user.name,
+            'password': user.password,
+            'isAdmin': user.isAdmin,
+            'isVerified': user.isVerified,
+            'avatar': user.avatar,
+            'age': user.age,
+            'address': user.address,
+            'phone': user.phone,
+            'updatedAt': now,
+        }).then(function (user) {
+            console.log("new user " + JSON.stringify(user));
+            return true;
+        }).catch(function (err) {
+            console.log(err.name);
+            return false;
+        })
+    })
+};

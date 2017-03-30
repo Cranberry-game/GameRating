@@ -10,7 +10,7 @@ let now = Date.now();
 // };
 
 export const addListReview = (listReview,db)=>{
-    Promise.all([
+    return Promise.all([
         db.User.findById(listReview.userId),
         db.GameList.findById(listReview.gameListId),
         db.ListReview.create({
@@ -20,7 +20,7 @@ export const addListReview = (listReview,db)=>{
             updatedAt: now,
         })
     ]).then(function (value) {
-        (async()=>{
+        return (async()=>{
             console.log(JSON.stringify(value[1]));
             await value[0].addListreview(value[2]);
             await value[1].addListreview(value[2]);
