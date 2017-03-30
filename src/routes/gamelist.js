@@ -1,5 +1,5 @@
 import {
-    queryGameListByID as qglid,
+    queryGameListById as qglid,
     queryGameListByName as qglname,
     addGameList as addgl,
     deleteGameList as dgl

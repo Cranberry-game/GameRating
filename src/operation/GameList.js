@@ -69,7 +69,7 @@ export const queryGameListByName = (gameListName, db)=>{
     });
 };
 
-export const queryGameListByID = (gameListId, db)=>{
+export const queryGameListById = (gameListId, db)=>{
     return db.GameList.findById(gameListId).then(function (gl) {
         return (async()=>{
             let games = await gl.getGames();
@@ -118,7 +118,7 @@ export const addGameToGameList = (gameId, gameListId, db)=>{
     let gl;
     return db.GameList.findById(gameListId).then(function (gameList) {
         gl = gameList;
-        db.Game.findById(gameId)
+        return db.Game.findById(gameId)
     }).then(function (g) {
         gl.addGame(g);
     }).then(function () {
@@ -130,6 +130,16 @@ export const addGameToGameList = (gameId, gameListId, db)=>{
 };
 
 export const removeGameInGameList = (gameId, gameListId, db)=>{
-
-
+    let gl;
+    return db.GameList.findById(gameListId).then(function (gameList) {
+        gl = gameList;
+        return db.Game.findById(gameId)
+    }).then(function (g) {
+        gl.removeGame(g);
+    }).then(function () {
+        return true;
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    })
 };
