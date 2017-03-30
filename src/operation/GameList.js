@@ -71,7 +71,7 @@ export const queryGameListByName = (gameListName, db)=>{
 
 export const queryGameListByID = (gameListId, db)=>{
     return db.GameList.findById(gameListId).then(function (gl) {
-        (async()=>{
+        return (async()=>{
             let games = await gl.getGames();
             let g = new Array(games.length);
             for (let i = 0; i < games.length; i++){
