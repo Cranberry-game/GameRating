@@ -60,7 +60,7 @@ export const deleteGame = (id,db)=>{
 
 export const queryGameById = (id,db)=>{
     return db.Game.findById(id).then(function (g) {
-        (async()=>{
+        return (async()=>{
             let p = await g.getPlatforms({
                 attributes: ['platformName'],
             });

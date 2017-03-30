@@ -48,7 +48,7 @@ export const queryGameListByName = (gameListName, db)=>{
             }
         }
     }).then(function (gl) {
-        (async() =>{
+        return (async() =>{
             let res = new Array(gl.length);
             for (let i = 0; i < gl.length; i++){
                 let user = await gl[i].getUser();
