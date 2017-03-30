@@ -47,8 +47,23 @@ router.route("/")
 
 
     })
-    .delete((req,res,next)=>{
-        //dgame(req.id,router.get('Game'));
+    //delete a game by id
+    .delete(async (req,res,next)=>{
+        if(req.query.id){
+            let suc = await dgame(req.query.id,router.get('db'));
+            if(!suc){
+                res.status(404);
+                res.send("Cannot find");
+            }
+            else{
+                res.status(200);
+                res.send(`Game ${req.query.id} is deleted`);
+            };
+        }
+        else {
+            res.status(401);
+            res.send('Not valid query');
+        }
 
 
 
@@ -65,7 +80,9 @@ router.route("/")
             releaseCompany: req.body.releaseCompany,
             releaseDate: req.body.releaseDate,
             studio: req.body.studio,
-            platform:req.body.platform
+            platform:req.body.platform,
+            cover:req.body.cover,
+            description:req.body.description
         },router.get('db'));
         if(!suc){
             res.status(409);

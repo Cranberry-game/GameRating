@@ -1,8 +1,9 @@
 import {tokenMid} from './jwtauth';
 import {
-    queryReview as qrv,
-    addReview as addrv
-} from '../operation/Reviews';
+    queryListReview as qrv,
+    addListReview as addrv,
+    deleteListReview as dlrv
+} from '../operation/ListReviews';
 let bodyParser = require('body-parser');
 
 let jsonParser = bodyParser.json({type:"application/json"});
@@ -11,7 +12,7 @@ let express = require('express');
 export const router = express();
 router.route("/")
     .get(async (req,res,next)=>{
-        if(!req.query.gid){
+        if(!req.query.glid){
             res.status(401);
             res.send('Not valid query');
         }
@@ -33,7 +34,7 @@ router.route("/")
             userId: req.body.userId,
             rate: req.body.rate,
             content: req.body.content,
-            gameId:req.body.gameId
+            gameListId:req.body.gameListId
         },router.get('db'));
         if(!suc){
             res.status(401);
@@ -46,14 +47,14 @@ router.route("/")
     })
     .delete(async (req,res,next)=>{
         if(req.query.id){
-                let suc = await dlrv(req.query.id,router.get('db'));
+                let suc = await dlrv(req.qeury.id,router.get('db'));
                 if(!suc){
                     res.status(404);
                     res.send("Cannot find");
                 }
                 else{
                     res.status(200);
-                    res.send(`GameReview ${req.query.id} is deleted`);
+                    res.send(`GameListReview ${req.query.id} is deleted`);
                 };
         }
         else {
@@ -61,4 +62,4 @@ router.route("/")
             res.send('Not valid query');
         }
 
-    });;
+    });

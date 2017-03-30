@@ -1,6 +1,8 @@
 import {
     queryGameListByID as qglid,
-    queryGameListByName as qglname
+    queryGameListByName as qglname,
+    addGameList as addgl,
+    deleteGameList as dgl
 } from '../operation/GameList';
 let express = require('express');
 export const router = express();
@@ -36,12 +38,23 @@ router.route("/")
 
 
     })
-    .delete((req,res,next)=>{
-
-
-
-
-
+    //delete a gamelist by id
+    .delete(async (req,res,next)=>{
+        if(req.query.id){
+            let suc = await dgl(req.query.id,router.get('db'));
+            if(!suc){
+                res.status(404);
+                res.send("Cannot find");
+            }
+            else{
+                res.status(200);
+                res.send(`GameList ${req.query.id} is deleted`);
+            };
+        }
+        else {
+            res.status(401);
+            res.send('Not valid query');
+        }
 
     })
     //add a gamelist

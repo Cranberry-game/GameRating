@@ -3,6 +3,8 @@ import {router as gamerouter} from './game';
 import {router as lgrouter} from './login';
 import {router as rvrouter} from './review';
 import {router as glrouter} from './gamelist';
+import {router as uprouter} from './upload';
+import {router as lrvrouter} from './listreview';
 /* GET home page. */
 //const Sequelize = require ("sequelize");
 
@@ -37,4 +39,17 @@ export const router = (app) => {
 
 
   },glrouter);
+  app.use(prefix+'/upload',(req,res,next)=>{
+    uprouter.set('db',app.get('db'));
+    uprouter.set('dir',app.get('dir'));
+    next();
+
+
+  },uprouter);
+  app.use(prefix+'/glreview',(req,res,next)=>{
+    lrvrouter.set('db',app.get('db'));
+    next();
+
+  },lrvrouter);
+
 };

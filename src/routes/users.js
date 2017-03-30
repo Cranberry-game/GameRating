@@ -1,7 +1,9 @@
 import {
     queryUserById as quid,
-    addUser as addu
+    addUser as addu,
+    deleteUser as du
 } from '../operation/User';
+
 let bodyParser = require('body-parser');
 
 let jsonParser = bodyParser.json({type:"application/json"});
@@ -30,8 +32,22 @@ router.route('/')
 
 
   })
-  .delete((req,res,next)=>{
-
+  .delete(async (req,res,next)=>{
+        if(req.query.id){
+            let suc = await du(req.query.id,router.get('db'));
+            if(!suc){
+                res.status(404);
+                res.send("Cannot find");
+            }
+            else{
+                res.status(200);
+                res.send(`User ${req.query.id} is deleted`);
+            };
+        }
+        else {
+            res.status(401);
+            res.send('Not valid query');
+        }
 
 
 
@@ -39,12 +55,13 @@ router.route('/')
 
   })
   .post(jsonParser,async (req,res,next)=>{
+    
     let err = await addu({
             email: req.body.email,
             name: req.body.name,
             password: req.body.password,
             isAdmin: false,
-            isVerified: true,
+            isVerified: false,
             avatar: req.body.avatar,
             age: req.body.age,
             address: req.body.address,
