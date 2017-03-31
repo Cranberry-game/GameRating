@@ -4,7 +4,8 @@ import {
     addGameList as addgl,
     deleteGameList as dgl,
     addGameToGameList as addto,
-    removeGameInGameList as rmfr
+    removeGameInGameList as rmfr,
+    queryGameListByCreator as qgluid
 } from '../operation/GameList';
 let express = require('express');
 export const router = express();
@@ -34,7 +35,11 @@ router.route("/")
             res.send(glres);
           }
         }
-        else {
+        else if(req.query.uid){
+            let glres = await qgluid(req.query.uid,router.get('db'));
+            res.send(glres);
+        }
+        else{
           res.status(400);
           res.send("Bad request!");
         }

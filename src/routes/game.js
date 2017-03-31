@@ -95,7 +95,8 @@ router.route("/")
             studio: req.body.studio,
             platform:req.body.platform,
             cover:req.body.cover,
-            description:req.body.description
+            description:req.body.description,
+            screenshot:req.body.screenshot
         },router.get('db'));
         if(!suc){
             res.status(409);
@@ -120,7 +121,7 @@ router.route("/")
                 studio: req.body.studio,
                 platform:req.body.platform,
                 cover:req.body.cover,
-                description:req.body.description
+                description:req.body.description,
             },router.get('db'));
             if(!suc){
                 res.status(409);
