@@ -1,7 +1,10 @@
 import {
     queryUserById as quid,
     addUser as addu,
-    deleteUser as du
+    deleteUser as du,
+    updateUser as upu,
+    updatePriorityOfUser as upp,
+    verifyOrUnverifyUser as vu
 } from '../operation/User';
 
 let bodyParser = require('body-parser');
@@ -75,5 +78,74 @@ router.route('/')
           res.status(201);
           res.send('User Created');
         }
+  })
+  .put(jsonParser,async (req,res,next)=>{
+        let suc = await upu({
+            id:req.body.id,
+            name: req.body.name,
+            password: req.body.password,
+            avatar: req.body.avatar,
+            age: req.body.age,
+            address: req.body.address,
+            phone: req.body.phone
+        },router.get('db'));
+        if(!suc){
+          res.status(409);
+          res.send('Update failed');
+        }
+        else {
+          res.status(201);
+          res.send('User is Updated');
+        }
+
+
+
+
+  });
+  router.route('/auth').put(jsonParser,async(req,res,next)=>{
+      let type=req.headers['type'];
+        if(!type||(type!='priority'&&type!='verify')){
+            res.status(401);
+            res.send('Bad request');
+        }
+        else if(req.headers['type']=='priority'){//change admin   
+            if(req.body.isAdmin==undefined){
+                res.status(401);
+                res.send('Bad request');
+            }
+            else{
+                let suc=await upp(req.body.userId,req.body.isAdmin,router.get('db'));
+                if(!suc){
+                    res.status(409);
+                    res.send('Update failed');
+                }
+                else {
+                    res.status(201);
+                    res.send('Priority changed');
+                }
+            }
+        }
+        else {//verify
+            if(req.body.isVerified==undefined){
+                res.status(401);
+                res.send('Bad request');
+            }
+            else{
+                let suc=await vu(req.body.userId,req.body.isVerified,router.get('db'));
+                if(!suc){
+                    res.status(409);
+                    res.send('Update failed');
+                }
+                else {
+                    res.status(201);
+                    res.send('Verifity changed');
+                }
+            }
+
+        }
+
+
+
+
   });
 

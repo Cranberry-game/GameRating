@@ -2,7 +2,9 @@ import {
     queryGameListById as qglid,
     queryGameListByName as qglname,
     addGameList as addgl,
-    deleteGameList as dgl
+    deleteGameList as dgl,
+    addGameToGameList as addto,
+    removeGameInGameList as rmfr
 } from '../operation/GameList';
 let express = require('express');
 export const router = express();
@@ -77,6 +79,41 @@ router.route("/")
             res.status(201);
             res.send(`Created ${req.body.name} Success`);
         }
+
+//add a game and delete a game
+    }).put(jsonParser,async (req,res,next)=>{
+        if(!req.headers['type']){
+            res.status(401);
+            res.send('Bad request');
+        }
+        else if(req.headers['type']=='add'){
+            let suc=await addto(req.body.gameId,req.body.gameListId,router.get('db'));
+            if(!suc){
+                res.status(409);
+                res.send("add game fails");
+            }
+            else{
+                res.status(201);
+                res.send(`add ${req.body.gameId} to ${req.body.gameListId} Success`);
+            }
+
+        }
+        else if(req.headers['type']=='delete'){
+            let suc=await rmfr(req.body.gameId,req.body.gameListId,router.get('db'));
+            if(!suc){
+                res.status(409);
+                res.send("remove game fails");
+            }
+            else{
+                res.status(201);
+                res.send(`remove ${req.body.gameId} from ${req.body.gameListId} Success`);
+            }
+
+        }
+
+
+
+
 
 
     });

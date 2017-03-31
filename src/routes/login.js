@@ -30,6 +30,9 @@ router.route('/')
                 {
                     res.send({
                     token:cT({
+                        id:user.id,
+                        isAdmin:user.isAdmin,
+                        isVerified:user.isVerified,
                         username:user.name,
                         avatar:user.avatar,
                         email:user.email}),

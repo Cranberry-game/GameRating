@@ -4,7 +4,8 @@ import {
     queryGameById as qgid,
     queryGameByName as qgname,
     addGame as addg,
-    deleteGame as dgame
+    deleteGame as dgame,
+    updateGame as ugame
 } from '../operation/Game';
 import {queryReview as qreview} from '../operation/Reviews'
 import {queryUserById as quid} from '../operation/User'
@@ -107,4 +108,31 @@ router.route("/")
 
 
 
+    })
+    .put(jsonParser,async (req,res,next)=>{
+            let suc = await ugame({
+                id:req.body.id,
+                title: req.body.title,
+                gameType: req.body.gameType,
+                price: req.body.price,
+                releaseCompany: req.body.releaseCompany,
+                releaseDate: req.body.releaseDate,
+                studio: req.body.studio,
+                platform:req.body.platform,
+                cover:req.body.cover,
+                description:req.body.description
+            },router.get('db'));
+            if(!suc){
+                res.status(409);
+                res.send('update fails');
+            }
+            else{
+                res.send(`${req.body.title} is updated`);
+            }
+
+
+
+
+
     });
+    //router.route('/search').
