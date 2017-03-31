@@ -19,6 +19,7 @@ export const defg = (sequelize)=>{
     updatedAt: Sequelize.BIGINT,
     cover: Sequelize.STRING(100),
     description: Sequelize.STRING(500),
+    youtube: Sequelize.STRING(100),
 }, {
     timestamps: false
 });

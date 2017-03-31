@@ -69,6 +69,25 @@ export const queryGameListByName = (gameListName, db)=>{
     });
 };
 
+export const queryGameListByCreator = (userId, db)=>{
+    let r;
+    return db.User.findById(userId).then(function (user) {
+        return user.getGamelists();
+    }).then(function (lists) {
+        r = new Array(lists.length);
+        for (let i = 0; i < r.length; i++){
+            r[i] = {
+                gameListId: lists[i].id,
+                gameListName: lists[i].name
+            }
+        }
+        return r;
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    })
+};
+
 export const queryGameListById = (gameListId, db)=>{
     return db.GameList.findById(gameListId).then(function (gl) {
         return (async()=>{

@@ -5,6 +5,7 @@ import {defu} from './model/User';
 import {defgl} from './model/GameList';
 import {defc} from './model/Creation';
 import {deflr} from './model/ListReview';
+import {defs} from './model/Screenshot'
 const Sequelize = require ("sequelize");
 const config  = require ("./config.js");
 
@@ -19,7 +20,6 @@ let sequelize = new Sequelize(config.database, config.username, config.password,
     }
 });
 
-let now = Date.now();
 
 let Game = defg(sequelize);
 //Game.sync();
@@ -30,6 +30,9 @@ let User=defu(sequelize);
 let Platform = defp(sequelize);
 Game.hasMany(Platform, {onDelete: 'cascade'});
 //Platform.sync();
+
+let Screenshot = defs(sequelize);
+Game.hasMany(Screenshot, {onDelete: 'cascade'});
 
 let GameList = defgl(sequelize);
 User.hasMany(GameList);
@@ -64,7 +67,8 @@ let db = {
     Review: Review,
     Platform: Platform,
     User: User,
-    ListReview: ListReview
+    ListReview: ListReview,
+    Screenshot: Screenshot
 };
 
 

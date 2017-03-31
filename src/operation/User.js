@@ -95,18 +95,17 @@ export const updateUser = (user, db)=>{
             'address': user.address,
             'phone': user.phone,
             'updatedAt': now,
-        }).then(function (user) {
-            console.log("new user " + JSON.stringify(user));
-            return true;
-        }).catch(function (err) {
-            console.log(err.name);
-            return false;
         })
+    }).then(function () {
+        return true;
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
     })
 };
 
 export const updatePriorityOfUser = (userId, isAdmin, db)=>{
-    db.User.findById(userId).then(function (user) {
+    return db.User.findById(userId).then(function (user) {
         user.update({
             isAdmin: isAdmin,
         })
@@ -119,7 +118,7 @@ export const updatePriorityOfUser = (userId, isAdmin, db)=>{
 };
 
 export const verifyOrUnverifyUser = (userId, isVerified, db)=>{
-    db.User.findById(userId).then(function (user) {
+    return db.User.findById(userId).then(function (user) {
         user.update({
             isVerified: isVerified,
         })

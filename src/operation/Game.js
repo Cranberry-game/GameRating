@@ -11,14 +11,19 @@ let now = Date.now();
 //     releaseDate: '2/5/1998',
 //     studio: 'default',
 //     description: 'good game',
-//     platform: ['Xbox one', 'PS4']
-//     cover: 'url://';
+//     platform: ['Xbox one', 'PS4'],
+//     cover: 'url://',
+//     screenshot: ['url://', 'url://', 'url://', 'url://', 'url://', 'url://', 'url://', 'url://', 'url://']
 // };
 
 export const addGame = (game,db)=>{
     let p = new Array(game.platform.length);
     for (let i = 0; i < p.length; i++){
         p[i] = {platformName: game.platform[i]};
+    }
+    let s = new Array(game.screenshot.length);
+    for (let j = 0; j < s.length; j++){
+        s[j] = {img: game.screenshot[j]};
     }
     return db.Game.create({
         title: game.title,
@@ -32,9 +37,10 @@ export const addGame = (game,db)=>{
         cover: game.cover,
         createdAt: now,
         updatedAt: now,
-        platforms: p
+        platforms: p,
+        screenshots: s,
     }, {
-        include: [db.Platform]
+        include: [db.Platform, db.Screenshot]
     }).then(function (g) {
         console.log("create" + JSON.stringify(g));
         return true;
@@ -64,6 +70,9 @@ export const queryGameById = (id,db)=>{
             let p = await g.getPlatforms({
                 attributes: ['platformName'],
             });
+            let s = await g.getScreenshots({
+                attributes: ['img'],
+            });
             let res = {
                 id: g.id,
                 title: g.title,
@@ -77,7 +86,8 @@ export const queryGameById = (id,db)=>{
                 cover: g.cover,
                 createdAt: g.createdAt,
                 updatedAt: g.updatedAt,
-                platforms: p
+                platforms: p,
+                screenshots: s,
             };
             console.log(JSON.stringify(res));
             return res;
