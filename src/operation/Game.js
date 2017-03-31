@@ -119,5 +119,9 @@ export const updateGame = (game, db)=>{
             'cover': game.cover,
             'description': game.description,
         })
+    }).then(function () {
+        return true;
+    }).catch(function (err) {
+        console.log(err.name);
     })
 };
