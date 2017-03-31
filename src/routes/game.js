@@ -6,15 +6,16 @@ import {
     addGame as addg,
     deleteGame as dgame
 } from '../operation/Game';
+import {queryReview as qreview} from '../operation/Reviews'
+import {queryUserById as quid} from '../operation/User'
 let bodyParser = require('body-parser');
 
 let jsonParser = bodyParser.json({type:"application/json"});
 
 let express = require('express');
 export const router = express();
-//let Game= router.get('Game');
 router.route("/")
-    .get(tokenMid,(req,res,next)=>{
+    .get((req,res,next)=>{
         if(req.query.id){
           (async ()=>{
                 let gameres = await qgid(req.query.id,router.get('db'));
@@ -23,6 +24,17 @@ router.route("/")
                     res.send("Cannot find");
                 }
                 else{
+                    let rvs=await qreview(gameres.id,router.get('db'));
+                    for(let i=0;i<rvs.length;i++){
+                        let thisuser = await quid(rvs[i].userId,router.get('db')); 
+                         rvs[i].dataValues.creator = {
+                            id:thisuser.id,
+                            name:thisuser.name,
+                            email:thisuser.email,
+                            avatar:thisuser.avatar
+                        };
+                    }
+                    gameres.reviews=await rvs;
                     res.send(gameres);
                 }
           })();
