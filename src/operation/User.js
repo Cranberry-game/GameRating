@@ -90,8 +90,6 @@ export const updateUser = (user, db)=>{
         u.update({
             'name': user.name,
             'password': user.password,
-            'isAdmin': user.isAdmin,
-            'isVerified': user.isVerified,
             'avatar': user.avatar,
             'age': user.age,
             'address': user.address,
