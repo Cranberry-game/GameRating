@@ -106,3 +106,29 @@ export const updateUser = (user, db)=>{
         })
     })
 };
+
+export const updatePriorityOfUser = (userId, isAdmin, db)=>{
+    db.User.findById(userId).then(function (user) {
+        user.update({
+            isAdmin: isAdmin,
+        })
+    }).then(function (user) {
+        return true;
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    })
+};
+
+export const verifyOrUnverifyUser = (userId, isVerified, db)=>{
+    db.User.findById(userId).then(function (user) {
+        user.update({
+            isVerified: isVerified,
+        })
+    }).then(function (user) {
+        return true;
+    }).catch(function (err) {
+        console.log(err.name);
+        return false;
+    })
+};
