@@ -6,6 +6,7 @@ import {defgl} from './model/GameList';
 import {defc} from './model/Creation';
 import {deflr} from './model/ListReview';
 import {defs} from './model/Screenshot'
+import {updateRedis as upr} from './operation/Redis';
 const Sequelize = require ("sequelize");
 const config  = require ("./config.js");
 
@@ -92,6 +93,7 @@ app.set('dir',__dirname);
 app.set('cl',client);
 app.set('ggcl',gameAndGameList);
 app.use(express.static('dist/public'));
+upr(db,client,gameAndGameList);
 // app.set('User',User);
 // app.set('Review',Review);
 // app.set('Platform',Platform);

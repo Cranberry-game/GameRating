@@ -9,6 +9,7 @@ import {
 } from '../operation/Game';
 import {queryReview as qreview} from '../operation/Reviews'
 import {queryUserById as quid} from '../operation/User'
+import {updateRedis as upr} from '../operation/Redis'
 let bodyParser = require('body-parser');
 
 let jsonParser = bodyParser.json({type:"application/json"});
@@ -63,12 +64,13 @@ router.route("/")
     //delete a game by id
     .delete(async (req,res,next)=>{
         if(req.query.id){
-            let suc = await dgame(req.query.id,router.get('db'),router.get('cl'),router.get('ggcl'));
+            let suc = await dgame(req.query.id,router.get('db'));
             if(!suc){
                 res.status(404);
                 res.send("Cannot find");
             }
             else{
+                await upr(router.get('db'),router.get('cl'),router.get('ggcl'));
                 res.status(200);
                 res.send(`Game ${req.query.id} is deleted`);
             };
@@ -97,12 +99,13 @@ router.route("/")
             cover:req.body.cover,
             description:req.body.description,
             screenshot:req.body.screenshot
-        },router.get('db'),router.get('cl'),router.get('ggcl'));
+        },router.get('db'));
         if(!suc){
             res.status(409);
             res.send("Game title is not available");
         }
         else{
+            await upr(router.get('db'),router.get('cl'),router.get('ggcl'));
             res.status(201);
             res.send(`Created Success${req.body.title}`);
         }

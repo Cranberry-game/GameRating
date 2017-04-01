@@ -7,6 +7,7 @@ import {
     removeGameInGameList as rmfr,
     queryGameListByCreator as qgluid
 } from '../operation/GameList';
+import {updateRedis as upr} from '../operation/Redis';
 let express = require('express');
 export const router = express();
 
@@ -54,12 +55,13 @@ router.route("/")
     //delete a gamelist by id
     .delete(async (req,res,next)=>{
         if(req.query.id){
-            let suc = await dgl(req.query.id,router.get('db'),router.get('ggcl'));
+            let suc = await dgl(req.query.id,router.get('db'));
             if(!suc){
                 res.status(404);
                 res.send("Cannot find");
             }
             else{
+                await upr(router.get('db'),router.get('cl'),router.get('ggcl'));
                 res.status(200);
                 res.send(`GameList ${req.query.id} is deleted`);
             };
@@ -80,12 +82,13 @@ router.route("/")
             img: req.body.img,
             totalRate:req.body.totalRate,
             description:req.body.description 
-        },router.get('db'),router.get('ggcl'));
+        },router.get('db'));
         if(!suc){
             res.status(409);
             res.send("Create fails");
         }
         else{
+            await upr(router.get('db'),router.get('cl'),router.get('ggcl'));
             res.status(201);
             res.send(`Created ${req.body.name} Success`);
         }
