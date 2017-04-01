@@ -24,11 +24,11 @@ export const addGameList = (gameList, db, gameAndGameList)=>{
         }),
     ]).then(function (value) {
         return (async()=>{
-            gameAndGameList.set(value[1].name, JSON.stringify({
-                gameListId: value[1].id,
-                gameListName: value[1].name,
-                gameListImg: value[1].img,
-            }));
+            // gameAndGameList.set(value[1].name, JSON.stringify({
+            //     gameListId: value[1].id,
+            //     gameListName: value[1].name,
+            //     gameListImg: value[1].img,
+            // }));
             let games = new Array(gameList.gameId.length);
             for (let i = 0; i < games.length; i++){
                 games[i] = await db.Game.findById(gameList.gameId[i]);
@@ -160,7 +160,7 @@ export const queryGameListById = (gameListId, db)=>{
 
 export const deleteGameList = (gameListId, db, gameAndGameList) =>{
     return db.GameList.findById(gameListId).then(function (gl) {
-        gameAndGameList.del(gl.name);
+        // gameAndGameList.del(gl.name);
         gl.destroy();
         console.log("delete " + gl + " game lists");
         return true;

@@ -43,16 +43,16 @@ export const addGame = (game, db, client, gameAndGameList)=>{
         include: [db.Platform, db.Screenshot]
     }).then(function (g) {
         console.log("create" + JSON.stringify(g));
-        client.set(g.title, JSON.stringify({
-            gameId: g.id,
-            gameTitle: g.title,
-            gameCover: g.cover,
-        }));
-        gameAndGameList.set(g.title, JSON.stringify({
-            gameId: g.id,
-            gameTitle: g.title,
-            gameCover: g.cover,
-        }));
+        // client.set(g.title, JSON.stringify({
+        //     gameId: g.id,
+        //     gameTitle: g.title,
+        //     gameCover: g.cover,
+        // }));
+        // gameAndGameList.set(g.title, JSON.stringify({
+        //     gameId: g.id,
+        //     gameTitle: g.title,
+        //     gameCover: g.cover,
+        // }));
         return true;
     }).catch(function (err) {
         console.log(err.name);
@@ -62,9 +62,9 @@ export const addGame = (game, db, client, gameAndGameList)=>{
 
 export const deleteGame = (id, db, client, gameAndGameList)=>{
     return db.Game.findById(id).then(function (g) {
-        //console.log("Delete " + g + " Game");
-        client.del(g.title);
-        gameAndGameList.del(g.title);
+        // //console.log("Delete " + g + " Game");
+        // client.del(g.title);
+        // gameAndGameList.del(g.title);
         g.destroy();
         return true
     }).catch(function (err) {
