@@ -18,7 +18,7 @@ router.route('/avatar')
           
         });
       });
-router.route('/gl')
+router.route('/cover')
   .post(jsonParser,async (req,res,next)=>{
     let form = new formidable.IncomingForm();
          form.uploadDir = router.get('dir')+"/public/cover";
@@ -33,7 +33,21 @@ router.route('/gl')
 
     next();
   });
+router.route('/scshot')
+  .post(jsonParser,async (req,res,next)=>{
+    let form = new formidable.IncomingForm();
+         form.uploadDir = router.get('dir')+"/public/screenshot";
+         form.parse(req,(err,fields,files)=>{
+           let filename= path.basename(files.files.path);
+           res.send('gamerating.info/screenshot/'+filename);
+           console.log('upload success');
+          
+        });
 
+
+
+    next();
+  });
 
 
 
