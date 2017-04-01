@@ -37,9 +37,9 @@ export const queryReview = (gameId, db)=>{
     return db.Game.findById(gameId).then(function (g) {
         return (async()=>{
             let reviews = await g.getReviews({
-                attributes: ['rate', 'content', 'userId']
+                attributes: ['id', 'rate', 'content', 'userId', 'createdAt']
             });
-            console.log("find " + reviews.length + " reviews")
+            console.log("find " + reviews.length + " reviews");
             for(let i = 0; i < reviews.length; i++){
                 console.log(JSON.stringify(reviews[i]));
             }
