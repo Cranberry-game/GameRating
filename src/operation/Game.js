@@ -16,7 +16,7 @@ let now = Date.now();
 //     screenshot: ['url://', 'url://', 'url://', 'url://', 'url://', 'url://', 'url://', 'url://', 'url://']
 // };
 
-export const addGame = (game,db,client)=>{
+export const addGame = (game, db, client, gameAndGameList)=>{
     let p = new Array(game.platform.length);
     for (let i = 0; i < p.length; i++){
         p[i] = {platformName: game.platform[i]};
@@ -48,6 +48,11 @@ export const addGame = (game,db,client)=>{
             gameTitle: g.title,
             gameCover: g.cover,
         }));
+        gameAndGameList.set(g.title, JSON.stringify({
+            gameId: g.id,
+            gameTitle: g.title,
+            gameCover: g.cover,
+        }));
         return true;
     }).catch(function (err) {
         console.log(err.name);
@@ -55,10 +60,11 @@ export const addGame = (game,db,client)=>{
     })
 };
 
-export const deleteGame = (id, db, client)=>{
+export const deleteGame = (id, db, client, gameAndGameList)=>{
     return db.Game.findById(id).then(function (g) {
         //console.log("Delete " + g + " Game");
         client.del(g.title);
+        gameAndGameList.del(g.title);
         g.destroy();
         return true
     }).catch(function (err) {

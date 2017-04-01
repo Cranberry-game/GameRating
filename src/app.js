@@ -73,6 +73,9 @@ let db = {
 
 let redis = require('redis');
 let client = redis.createClient();
+client.select(1);
+let gameAndGameList = redis.createClient();
+gameAndGameList.select(2);
 client.on('error', function(err){
     "use strict";
    console.log("Error" + err);
