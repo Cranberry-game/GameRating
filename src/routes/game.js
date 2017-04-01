@@ -63,7 +63,7 @@ router.route("/")
     //delete a game by id
     .delete(async (req,res,next)=>{
         if(req.query.id){
-            let suc = await dgame(req.query.id,router.get('db'),router.get('cl'));
+            let suc = await dgame(req.query.id,router.get('db'),router.get('cl'),router.get('ggcl'));
             if(!suc){
                 res.status(404);
                 res.send("Cannot find");
@@ -97,10 +97,10 @@ router.route("/")
             cover:req.body.cover,
             description:req.body.description,
             screenshot:req.body.screenshot
-        },router.get('db'),router.get('cl'));
+        },router.get('db'),router.get('cl'),router.get('ggcl'));
         if(!suc){
             res.status(409);
-            res.send("Create fails");
+            res.send("Game title is not available");
         }
         else{
             res.status(201);

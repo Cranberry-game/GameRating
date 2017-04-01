@@ -72,11 +72,11 @@ router.route('/')
         },router.get('db'));
         if(err==false){
           res.status(409);
-          res.send('Created failed');
+          res.send('This email is not available!');
         }
         else {
           res.status(201);
-          res.send('User Created');
+          res.send(`User ${req.body.name} is created`);
         }
   })
   .put(jsonParser,async (req,res,next)=>{

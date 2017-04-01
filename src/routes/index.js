@@ -5,6 +5,7 @@ import {router as rvrouter} from './review';
 import {router as glrouter} from './gamelist';
 import {router as uprouter} from './upload';
 import {router as lrvrouter} from './listreview';
+import {router as srouter} from './search';
 /* GET home page. */
 //const Sequelize = require ("sequelize");
 
@@ -18,6 +19,7 @@ export const router = (app) => {
   app.use(prefix+'/game',(req,res,next)=>{
     gamerouter.set('db',app.get('db'));
     gamerouter.set('cl',app.get('cl'));
+    gamerouter.set('ggcl',app.get('ggcl'));
     next();
   },gamerouter);
   app.use(prefix+'/user',(req,res,next)=>{
@@ -36,6 +38,7 @@ export const router = (app) => {
   },rvrouter);
   app.use(prefix+'/gamelist',(req,res,next)=>{
     glrouter.set('db',app.get('db'));
+    glrouter.set('ggcl',app.get('ggcl'));
     next();
 
 
@@ -52,5 +55,13 @@ export const router = (app) => {
     next();
 
   },lrvrouter);
+
+  app.use(prefix+'/search',(req,res,next)=>{
+    srouter.set('db',app.get('db'));
+    srouter.set('cl',app.get('cl'));
+    srouter.set('ggcl',app.get('ggcl'));
+    next();
+  },srouter);
+
 
 };

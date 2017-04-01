@@ -54,7 +54,7 @@ router.route("/")
     //delete a gamelist by id
     .delete(async (req,res,next)=>{
         if(req.query.id){
-            let suc = await dgl(req.query.id,router.get('db'));
+            let suc = await dgl(req.query.id,router.get('db'),router.get('ggcl'));
             if(!suc){
                 res.status(404);
                 res.send("Cannot find");
@@ -80,7 +80,7 @@ router.route("/")
             img: req.body.img,
             totalRate:req.body.totalRate,
             description:req.body.description 
-        },router.get('db'));
+        },router.get('db'),router.get('ggcl'));
         if(!suc){
             res.status(409);
             res.send("Create fails");

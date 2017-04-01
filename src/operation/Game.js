@@ -145,9 +145,3 @@ export const updateGame = (game, db)=>{
     })
 };
 
-export const search = (gameName, client)=>{
-    client.keys(gameName + "*", function (err, reply) {
-        if (err) return false;
-        console.log(reply);
-    })
-};
