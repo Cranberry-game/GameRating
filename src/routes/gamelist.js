@@ -37,7 +37,12 @@ router.route("/")
         }
         else if(req.query.uid){
             let glres = await qgluid(req.query.uid,router.get('db'));
-            res.send(glres);
+            if(!glres){
+                res.send([]);
+            }
+            else{
+                res.send(glres);
+            }
         }
         else{
           res.status(400);
