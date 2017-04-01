@@ -61,9 +61,10 @@ export const queryGameListByName = (gameListName, db)=>{
                         email: user.email,
                         avatar: user.avatar,
                     },
-                    cover: gl[i].cover,
+                    img: gl[i].img,
+                    description: gl[i].description,
                     createTime: gl[i].createdAt,
-                    updateTime: gl[i].updatedAt
+                    updateTime: gl[i].updatedAt,
                 };
             }
             console.log(JSON.stringify(res));

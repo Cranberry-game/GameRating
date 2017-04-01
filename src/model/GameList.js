@@ -8,8 +8,8 @@ export const defgl =(sequelize) => {
         primaryKey: true
     },
     name: Sequelize.STRING(100),
-    img: Sequelize.STRING(100),
-    description: Sequelize.STRING(500),
+    img: Sequelize.STRING(1000),
+    description: Sequelize.STRING(5000),
     totalRate: Sequelize.FLOAT,
     createdAt: Sequelize.BIGINT,
     updatedAt: Sequelize.BIGINT

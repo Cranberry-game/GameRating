@@ -16,9 +16,9 @@ export const defu = (sequelize)=>{
         password: Sequelize.STRING(100),
         isAdmin: Sequelize.BOOLEAN,
         isVerified: Sequelize.BOOLEAN,
-        avatar: Sequelize.STRING(100),
+        avatar: Sequelize.STRING(1000),
         age: Sequelize.BIGINT,
-        address: Sequelize.STRING(100),
+        address: Sequelize.STRING(1000),
         phone: Sequelize.STRING(100),
         createdAt: Sequelize.BIGINT,
         updatedAt: Sequelize.BIGINT

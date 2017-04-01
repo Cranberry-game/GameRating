@@ -8,7 +8,7 @@ export const defs = (sequelize)=>{
             autoIncrement: true,
             primaryKey: true
         },
-        img: Sequelize.STRING(100)
+        img: Sequelize.STRING(1000)
     }, {
         timestamps: false
     });

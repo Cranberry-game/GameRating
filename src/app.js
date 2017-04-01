@@ -71,6 +71,15 @@ let db = {
     Screenshot: Screenshot
 };
 
+let redis = require('redis');
+let client = redis.createClient();
+client.on('error', function(err){
+    "use strict";
+   console.log("Error" + err);
+});
+//client.flushall();
+//client.end(true);
+
 
 let express = require('express');
 

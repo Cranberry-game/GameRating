@@ -9,7 +9,7 @@ export const deflr = (sequelize)=>{
             primaryKey: true
         },
         rate: Sequelize.FLOAT,
-        content: Sequelize.STRING(500),
+        content: Sequelize.STRING,
         createdAt: Sequelize.BIGINT,
         updatedAt: Sequelize.BIGINT
     }, {

@@ -8,7 +8,10 @@ export const defg = (sequelize)=>{
         autoIncrement: true,
         primaryKey: true
     },
-    title: Sequelize.STRING(100),
+    title: {
+        type: Sequelize.STRING,
+        unique: true,
+    },
     gameType: Sequelize.STRING(100),
     totalRate: Sequelize.FLOAT,
     price: Sequelize.STRING(100),
@@ -17,8 +20,8 @@ export const defg = (sequelize)=>{
     studio: Sequelize.STRING(100),
     createdAt: Sequelize.BIGINT,
     updatedAt: Sequelize.BIGINT,
-    cover: Sequelize.STRING(100),
-    description: Sequelize.STRING(500),
+    cover: Sequelize.STRING(1000),
+    description: Sequelize.STRING(5000),
     youtube: Sequelize.STRING(100),
 }, {
     timestamps: false

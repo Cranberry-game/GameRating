@@ -16,7 +16,7 @@ let now = Date.now();
 //     screenshot: ['url://', 'url://', 'url://', 'url://', 'url://', 'url://', 'url://', 'url://', 'url://']
 // };
 
-export const addGame = (game,db)=>{
+export const addGame = (game,db,client)=>{
     let p = new Array(game.platform.length);
     for (let i = 0; i < p.length; i++){
         p[i] = {platformName: game.platform[i]};
@@ -43,6 +43,11 @@ export const addGame = (game,db)=>{
         include: [db.Platform, db.Screenshot]
     }).then(function (g) {
         console.log("create" + JSON.stringify(g));
+        client.set(g.title, JSON.stringify({
+            gameId: g.id,
+            gameTitle: g.title,
+            gameCover: g.cover,
+        }));
         return true;
     }).catch(function (err) {
         console.log(err.name);
@@ -50,13 +55,11 @@ export const addGame = (game,db)=>{
     })
 };
 
-export const deleteGame = (id,db)=>{
-    return db.Game.destroy({
-        where:{
-            id : id
-        }
-    }).then(function (g) {
-        console.log("Delete " + g + " Game");
+export const deleteGame = (id, db, client)=>{
+    return db.Game.findById(id).then(function (g) {
+        //console.log("Delete " + g + " Game");
+        client.del(g.title);
+        g.destroy();
         return true
     }).catch(function (err) {
         console.log(err.name);
@@ -133,5 +136,12 @@ export const updateGame = (game, db)=>{
         return true;
     }).catch(function (err) {
         console.log(err.name);
+    })
+};
+
+export const search = (gameName, client)=>{
+    client.keys(gameName + "*", function (err, reply) {
+        if (err) return false;
+        console.log(reply);
     })
 };

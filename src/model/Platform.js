@@ -9,7 +9,7 @@ export const defp = (sequelize)=>{
             primaryKey: true
         },
         platformName: {
-            type: Sequelize.ENUM('Xbox One','PS4','Nintendo Switch','Wii U', 'PC'),
+            type: Sequelize.ENUM('Xbox One', "Xbox 360", "PS3", "Mobile", 'Vita', 'PS4', 'Nintendo Switch', 'Wii U', 'PC'),
             allowNull: false
         }
     }, {
