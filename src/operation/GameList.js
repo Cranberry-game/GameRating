@@ -55,7 +55,13 @@ export const queryGameListByName = (gameListName, db)=>{
                 res[i] = {
                     id: gl[i].id,
                     gameListName: gl[i].name,
-                    creator: user.name,
+                    creator: {
+                        userId: user.id,
+                        name: user.name,
+                        email: user.email,
+                        avatar: user.avatar,
+                    },
+                    cover: gl[i].cover,
                     createTime: gl[i].createdAt,
                     updateTime: gl[i].updatedAt
                 };
@@ -93,22 +99,49 @@ export const queryGameListById = (gameListId, db)=>{
         return (async()=>{
             let games = await gl.getGames();
             let g = new Array(games.length);
-            for (let i = 0; i < games.length; i++){
+            for (let i = 0; i < games.length; i++) {
                 g[i] = {
                     id: games[i].id,
                     cover: games[i].cover,
                     title: games[i].title,
-                    rate: games[i].totalRate
+                    rate: games[i].totalRate,
+                    description: games[i].description,
                 }
             }
             let user = await gl.getUser();
+            let lr = await gl.getListreviews();
+            let r = new Array(lr.length);
+            for (let i = 0; i < r.length; i++){
+                let creator = await db.User.findById(lr[i].userId);
+                r[i] = {
+                    id: lr[i].id,
+                    rate: lr[i].rate,
+                    content: lr[i].content,
+                    createAt: lr[i].createdAt,
+                    creator:{
+                        userId: creator.id,
+                        name: creator.name,
+                        email: creator.email,
+                        avatar: creator.avatar,
+                    }
+                }
+            }
             let res = {
                 id: gl.id,
                 gameListName: gl.name,
-                creator: user.name,
+                creator: {
+                    userId: user.id,
+                    name: user.name,
+                    email: user.email,
+                    avatar: user.avatar,
+                },
+                description: gl.description,
+                img: gl.img,
                 createTime: gl.createdAt,
                 updateTime: gl.updatedAt,
-                games: g
+                games: g,
+                reviews: r,
+
             };
             console.log(JSON.stringify(res));
             return res;

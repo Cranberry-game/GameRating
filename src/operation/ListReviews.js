@@ -38,9 +38,9 @@ export const queryListReview = (gameListId, db)=>{
     return db.GameList.findById(gameListId).then(function (g) {
         return (async()=>{
             let reviews = await g.getListreviews({
-                attributes: ['rate', 'content', 'userId']
+                attributes: ['id', 'rate', 'content', 'userId', 'createdAt']
             });
-            console.log("find " + reviews.length + " reviews")
+            console.log("find " + reviews.length + " reviews");
             for(let i = 0; i < reviews.length; i++){
                 console.log(JSON.stringify(reviews[i]));
             }
