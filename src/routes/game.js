@@ -63,7 +63,7 @@ router.route("/")
     //delete a game by id
     .delete(async (req,res,next)=>{
         if(req.query.id){
-            let suc = await dgame(req.query.id,router.get('db'));
+            let suc = await dgame(req.query.id,router.get('db'),router.get('cl'));
             if(!suc){
                 res.status(404);
                 res.send("Cannot find");
@@ -97,7 +97,7 @@ router.route("/")
             cover:req.body.cover,
             description:req.body.description,
             screenshot:req.body.screenshot
-        },router.get('db'));
+        },router.get('db'),router.get('cl'));
         if(!suc){
             res.status(409);
             res.send("Create fails");
@@ -130,6 +130,38 @@ router.route("/")
             else{
                 res.send(`${req.body.title} is updated`);
             }
+
+
+
+
+
+    });
+    router.route('/suggest').get(async(req,res,next)=>{
+        let client= await router.get('cl');
+        if(req.query.name){
+            client.keys(req.query.name + "*", function (err, reply) {
+                if (err) {
+                    res.status(409);
+                    res.send("Error");
+                }
+                else{
+                    res.send(reply);
+                }
+            })
+        }
+        else if(req.query.fullname){
+            client.get(req.query.fullname, (err,reply)=>{
+                if (err) {
+                    res.status(409);
+                    res.send("Error");
+                }
+                else{
+                    res.send(reply);
+                }
+            })
+
+        }
+
 
 
 

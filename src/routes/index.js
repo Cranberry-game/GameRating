@@ -17,6 +17,7 @@ export const router = (app) => {
   let prefix='/api/v1';
   app.use(prefix+'/game',(req,res,next)=>{
     gamerouter.set('db',app.get('db'));
+    gamerouter.set('cl',app.get('cl'));
     next();
   },gamerouter);
   app.use(prefix+'/user',(req,res,next)=>{

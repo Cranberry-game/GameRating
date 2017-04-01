@@ -86,6 +86,7 @@ let express = require('express');
 let app = express();
 app.set('db',db);
 app.set('dir',__dirname);
+app.set('cl',client);
 app.use(express.static('dist/public'));
 // app.set('User',User);
 // app.set('Review',Review);
