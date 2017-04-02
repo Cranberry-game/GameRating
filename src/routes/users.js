@@ -4,7 +4,8 @@ import {
     deleteUser as du,
     updateUser as upu,
     updatePriorityOfUser as upp,
-    verifyOrUnverifyUser as vu
+    verifyOrUnverifyUser as vu,
+    queryAllUser as qau
 } from '../operation/User';
 
 let bodyParser = require('body-parser');
@@ -144,9 +145,9 @@ router.route('/')
             }
 
         }
-
-
-
-
+  });
+  router.route('/all').get(async(req,res,next)=>{
+    let ures= await qau(router.get('db'));
+    res.send(ures);
   });
 
