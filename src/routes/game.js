@@ -22,6 +22,7 @@ router.route("/")
           (async ()=>{
                 let gameres = await qgid(req.query.id,router.get('db'));
                 if(!gameres){
+                    res.statusMessage = 'Cannot find';
                     res.status(404);
                     res.send("Cannot find");
                 }
@@ -46,6 +47,7 @@ router.route("/")
           (async ()=>{
                 let gameres = await qgname(req.query.name,router.get('db'));
                 if(!gameres[0]){
+                    res.statusMessage = 'Cannot find';
                     res.status(404);
                     res.send("Cannot find");
                 }
@@ -55,6 +57,7 @@ router.route("/")
           })();
         } 
         else {
+            res.statusMessage = 'Bad Request!';
             res.status(400);
             res.send("Bad Request!");
         }
@@ -66,16 +69,19 @@ router.route("/")
         if(req.query.id){
             let suc = await dgame(req.query.id,router.get('db'));
             if(!suc){
+                res.statusMessage = 'Cannot find this id';
                 res.status(404);
                 res.send("Cannot find");
             }
             else{
                 await upr(router.get('db'),router.get('cl'),router.get('ggcl'));
+                res.statusMessage = `Game ${req.query.id} is deleted`;
                 res.status(200);
                 res.send(`Game ${req.query.id} is deleted`);
             };
         }
         else {
+            res.statusMessage = 'Not valid query';
             res.status(401);
             res.send('Not valid query');
         }
@@ -101,6 +107,7 @@ router.route("/")
             screenshot:req.body.screenshot
         },router.get('db'));
         if(!suc){
+            res.statusMessage = "Game title is not available";
             res.status(409);
             res.send("Game title is not available");
         }
@@ -127,6 +134,7 @@ router.route("/")
                 description:req.body.description,
             },router.get('db'));
             if(!suc){
+                res.statusMessage = 'Update Fails';
                 res.status(409);
                 res.send('update fails');
             }

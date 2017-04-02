@@ -19,6 +19,7 @@ router.route("/")
         if(req.query.id){
           let glres = await qglid(req.query.id,router.get('db'));
           if(!glres){
+            res.statusMessage = 'Not Found';
             res.status(404);
             res.send('Not Found');
             //res.send(glres);
@@ -30,6 +31,7 @@ router.route("/")
           //res.send(`queryName:${req.query.name}`);
           let glres = await qglname(req.query.name,router.get('db'));
           if(!glres[0]){
+            res.statusMessage = 'Not Found';
             res.status(404);
             res.send('Not Found');            
           }else{
@@ -46,6 +48,7 @@ router.route("/")
             }
         }
         else{
+            res.statusMessage='Bad request';
           res.status(400);
           res.send("Bad request!");
         }
@@ -57,6 +60,7 @@ router.route("/")
         if(req.query.id){
             let suc = await dgl(req.query.id,router.get('db'));
             if(!suc){
+                res.statusMessage = 'Cannot find this gamelist';
                 res.status(404);
                 res.send("Cannot find");
             }
@@ -84,6 +88,7 @@ router.route("/")
             description:req.body.description 
         },router.get('db'));
         if(!suc){
+            res.statusMessage='Create fails';
             res.status(409);
             res.send("Create fails");
         }

@@ -15,6 +15,7 @@ router.route('/')
         let pswd=req.body.password;
         
         if(!(email&&pswd)) {
+            res.statusMessage = 'Bad request';
             res.status(400);
             res.send('Invalid');
 

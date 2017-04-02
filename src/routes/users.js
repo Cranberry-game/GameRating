@@ -71,6 +71,7 @@ router.route('/')
             phone: req.body.phone
         },router.get('db'));
         if(err==false){
+            res.statusMessage='This email is not available!';
           res.status(409);
           res.send('This email is not available!');
         }
