@@ -12,7 +12,7 @@ router.route('/avatar')
          form.uploadDir = await router.get('dir')+"/public/avatar";
          form.parse(req,(err,fields,files)=>{
            let filename= path.basename(files.files.path);
-           res.send('gamerating.info/avatar/'+filename);
+            res.send(JSON.stringify({url:'gamerating.info/avatar/'+filename}));
            console.log('upload success');
            next();
           
@@ -24,7 +24,7 @@ router.route('/cover')
          form.uploadDir = await router.get('dir')+"/public/cover";
          form.parse(req,(err,fields,files)=>{
            let filename= path.basename(files.files.path);
-           res.send('gamerating.info/cover/'+filename);
+           res.send(JSON.stringify({url:'gamerating.info/cover/'+filename}));
            console.log('upload success');
           next();
         });
@@ -39,7 +39,7 @@ router.route('/scshot')
          form.uploadDir = router.get('dir')+"/public/screenshot";
          form.parse(req,(err,fields,files)=>{
            let filename= path.basename(files.files.path);
-           res.send('gamerating.info/screenshot/'+filename);
+           res.send(JSON.stringify({url:'gamerating.info/screenshot/'+filename}));
            console.log('upload success');
               next();
         });
