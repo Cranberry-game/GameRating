@@ -31,9 +31,7 @@ router.route("/")
           //res.send(`queryName:${req.query.name}`);
           let glres = await qglname(req.query.name,router.get('db'));
           if(!glres[0]){
-            res.statusMessage = 'Not Found';
-            res.status(404);
-            res.send('Not Found');            
+            res.send([]);           
           }else{
             res.send(glres);
           }

@@ -9,7 +9,7 @@ let path = require('path');
 router.route('/avatar')
       .post(jsonParser,async (req,res,next)=>{
       let form = new formidable.IncomingForm();
-         form.uploadDir = router.get('dir')+"/public/avatar";
+         form.uploadDir = await router.get('dir')+"/public/avatar";
          form.parse(req,(err,fields,files)=>{
            let filename= path.basename(files.files.path);
            res.send('gamerating.info/avatar/'+filename);
@@ -21,17 +21,17 @@ router.route('/avatar')
 router.route('/cover')
   .post(jsonParser,async (req,res,next)=>{
     let form = new formidable.IncomingForm();
-         form.uploadDir = router.get('dir')+"/public/cover";
+         form.uploadDir = await router.get('dir')+"/public/cover";
          form.parse(req,(err,fields,files)=>{
            let filename= path.basename(files.files.path);
            res.send('gamerating.info/cover/'+filename);
            console.log('upload success');
-          
+          next();
         });
 
 
 
-    next();
+    
   });
 router.route('/scshot')
   .post(jsonParser,async (req,res,next)=>{
@@ -41,12 +41,12 @@ router.route('/scshot')
            let filename= path.basename(files.files.path);
            res.send('gamerating.info/screenshot/'+filename);
            console.log('upload success');
-          
+              next();
         });
 
 
 
-    next();
+
   });
 
 
