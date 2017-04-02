@@ -23,8 +23,8 @@ router.route('/')
                 let users=await findU(email,router.get('db'));
                 let user = users[0];
                 if(!user||user.password!=pswd){
-                    res.status(401);
-                    res.send("User name or password is invalid!");
+                    res.status(401).send("User name or password is invalid!");
+                    //res.send("User name or password is invalid!");
                 }
                 else 
                 {
