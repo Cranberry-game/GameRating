@@ -74,7 +74,7 @@ export const queryGameById = (id,db)=>{
                 title: g.title,
                 description: g.description,
                 gameType: g.gameType,
-                totalRate: g.totalRate,
+                totalRate: g.totalRate.toFixed(2),
                 price: g.price,
                 releaseCompany: g.releaseCompany,
                 releaseDate: g.releaseDate,
