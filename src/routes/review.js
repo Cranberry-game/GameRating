@@ -1,7 +1,8 @@
 import {tokenMid} from './jwtauth';
 import {
     queryReview as qrv,
-    addReview as addrv
+    addReview as addrv,
+    deleteReview as drv
 } from '../operation/Reviews';
 let bodyParser = require('body-parser');
 
@@ -46,7 +47,7 @@ router.route("/")
     })
     .delete(async (req,res,next)=>{
         if(req.query.id){
-                let suc = await dlrv(req.query.id,router.get('db'));
+                let suc = await drv(req.query.id,router.get('db'));
                 if(!suc){
                     res.status(404);
                     res.send("Cannot find");
