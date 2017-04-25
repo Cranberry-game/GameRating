@@ -49,7 +49,7 @@ router.route("/")
                 if(!gameres[0]){
                     res.statusMessage = 'Cannot find';
                     res.status(404);
-                    res.send("Cannot find");
+                    res.send([]);
                 }
                 else{
                     res.send(gameres);

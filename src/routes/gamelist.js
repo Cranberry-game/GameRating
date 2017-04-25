@@ -31,7 +31,9 @@ router.route("/")
           //res.send(`queryName:${req.query.name}`);
           let glres = await qglname(req.query.name,router.get('db'));
           if(!glres[0]){
-            res.send([]);           
+              res.statusMessage = 'Cannot find';
+              res.status(404);
+              res.send([]);           
           }else{
             res.send(glres);
           }
@@ -76,7 +78,6 @@ router.route("/")
     })
     //add a gamelist
     .post(jsonParser,async (req,res,next)=>{
-      //if(req.header('type')=='add')
         let suc = await addgl({
             userId: req.body.userId,
             gameId: req.body.gameId,

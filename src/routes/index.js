@@ -38,7 +38,7 @@ export const router = (app) => {
   },rvrouter);
   app.use(prefix+'/gamelist',(req,res,next)=>{
     glrouter.set('db',app.get('db'));
-    gamerouter.set('cl',app.get('cl'));
+    glrouter.set('cl',app.get('cl'));
     glrouter.set('ggcl',app.get('ggcl'));
     next();
 
